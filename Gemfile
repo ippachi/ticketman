@@ -4,8 +4,14 @@ source "https://rubygems.org"
 
 gem "rake"
 gem "test-unit"
-gem "sinatra"
 gem "rack-test"
+gem "mongo"
+gem "warning"
+gem "ulid"
+gem "dry-container"
+
+gem "sinatra"
+gem "sinatra-contrib"
 
 gem "sorbet"
 gem "sorbet-static"
