@@ -1,3 +1,5 @@
+require "simplecov"
+SimpleCov.start
 require "warning"
 
 Gem.path.each do |path|
