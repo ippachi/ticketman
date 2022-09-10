@@ -3,7 +3,6 @@
 require "test_helper"
 require "rack/test"
 require "json"
-require_relative "../lib/ticketman/gateway"
 
 class RequestTest < Test::Unit::TestCase
   include Rack::Test::Methods
@@ -13,7 +12,7 @@ class RequestTest < Test::Unit::TestCase
   end
 
   def test_get_workspace_request
-    Ticketman::Gateway::WorkspaceRepository.new.save(id: "1", name: "name")
+    Ticketman::Container["gateway.workspace_repo"].save(id: "1", name: "name")
 
     get "/workspaces/1"
     assert_equal 200, last_response.status

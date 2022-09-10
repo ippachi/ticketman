@@ -2,8 +2,6 @@
 
 require "sinatra/base"
 require "sinatra/json"
-require "sorbet-runtime"
-require_relative "../ticketman"
 
 module Ticketman
   module Web

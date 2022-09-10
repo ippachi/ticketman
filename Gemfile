@@ -9,6 +9,7 @@ gem "mongo"
 gem "warning"
 gem "ulid"
 gem "dry-container"
+gem "zeitwerk"
 
 gem "sinatra"
 gem "sinatra-contrib"

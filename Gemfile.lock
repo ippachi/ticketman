@@ -81,6 +81,7 @@ GEM
     yard-sorbet (0.7.0)
       sorbet-runtime (>= 0.5)
       yard (>= 0.9)
+    zeitwerk (2.6.0)
 
 PLATFORMS
   arm64-darwin-21
@@ -98,6 +99,7 @@ DEPENDENCIES
   test-unit
   ulid
   warning
+  zeitwerk
 
 BUNDLED WITH
    2.3.7
