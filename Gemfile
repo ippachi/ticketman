@@ -15,6 +15,7 @@ gem "sinatra"
 gem "sinatra-contrib"
 
 group :development do
+  gem "rubycritic", require: false
   gem "sorbet"
   gem "tapioca", require: false
 

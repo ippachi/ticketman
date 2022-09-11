@@ -2,6 +2,7 @@
 
 require "rake/testtask"
 require "rubocop/rake_task"
+require "rubycritic/rake_task"
 
 Rake::TestTask.new(:test) do |t|
   t.libs << "test"
@@ -10,5 +11,8 @@ Rake::TestTask.new(:test) do |t|
 end
 
 RuboCop::RakeTask.new
+RubyCritic::RakeTask.new do |task|
+  task.options = "--format json"
+end
 
-task default: %i[test rubocop]
+task default: %i[test rubocop rubycritic]
