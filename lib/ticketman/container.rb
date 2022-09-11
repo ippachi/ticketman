@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # typed: strict
 
 require "dry/container"
@@ -6,7 +7,7 @@ module Ticketman
   class Container
     extend Dry::Container::Mixin
 
-    register("gateway.mongo_client") do
+    register("gateway.mongo_client", memoize: true) do
       Mongo::Client.new(["127.0.0.1:27017"], user: "ticketman", password: "password", database: "ticketmanTestDB")
     end
 

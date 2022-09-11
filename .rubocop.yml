@@ -1,0 +1,16 @@
+require: rubocop-rake
+
+AllCops:
+  NewCops: enable
+  Exclude:
+    - bin/tapioca
+    - bin/console
+
+Style/StringLiterals:
+  EnforcedStyle: double_quotes
+
+Style/Documentation:
+  Enabled: false
+
+Naming/HeredocDelimiterNaming:
+  Enabled: false

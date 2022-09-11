@@ -16,4 +16,4 @@ db.createCollection("workspaces", {
     }
   }
 })
-db.workspaces.createIndex({ id: 1 })
+db.workspaces.createIndex({ id: 1 }, { unique: 1 })

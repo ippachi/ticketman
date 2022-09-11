@@ -4,5 +4,4 @@
 
 # typed: false
 
-module Ticketman::Application; end
 module URI::File; end

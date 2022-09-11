@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 # typed: strict
 
 module Ticketman
@@ -10,9 +11,9 @@ module Ticketman
         @client = client
       end
 
-      sig { params(attributes: T.untyped).void }
-      def save(attributes)
-        @client[:workspaces].insert_one(attributes)
+      sig { params(workspace: Domain::Model::Workspace::Workspace).void }
+      def save(workspace)
+        @client[:workspaces].insert_one(workspace.serialize)
       end
     end
   end
