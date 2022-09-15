@@ -16,8 +16,8 @@ module Ticketman
       end
 
       post "/workspaces" do
-        workspace = Domain::Model::Workspace::WorkspaceFactory.new.create(id: params[:id], name: params[:name])
-        Container["gateway.workspace_repo"].save(workspace)
+        workspace = Container["application.workspace.workspace_application_service"].create_workspace(params[:id],
+                                                                                                      params[:name])
         [201, json(workspace.serialize)]
       end
     end

@@ -1,22 +1,20 @@
 # frozen_string_literal: true
 # typed: strict
 
-require "mongo"
-
 module Ticketman
   module Gateway
     class WorkspaceQuery
       extend T::Sig
       include Web::WorkspaceQuery
 
-      sig { params(client: Mongo::Client).void }
-      def initialize(client)
-        @client = client
+      sig { params(workspaces: Workspaces).void }
+      def initialize(workspaces)
+        @workspaces = workspaces
       end
 
       sig { override.params(id: String).returns(T.untyped) }
       def find(id)
-        @client[:workspaces].find(id:).first.except(:_id)
+        @workspaces.find(id)
       end
     end
   end
