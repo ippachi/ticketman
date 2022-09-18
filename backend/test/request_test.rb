@@ -5,6 +5,7 @@ require "test_helper"
 require "rack/test"
 require "json"
 
+# rubocop:disable Metrics/MethodLength
 class RequestTest < Test::Unit::TestCase
   include Rack::Test::Methods
 
@@ -17,11 +18,23 @@ class RequestTest < Test::Unit::TestCase
   end
 
   def test_post_and_get_workspace_request
-    post "/workspaces", { id: "hoge", name: "test workspace" }
-    assert_response(201, { id: "hoge", name: "test workspace" })
+    post "/graphql", {
+      query: <<~MUTATION
+        mutation {
+          createWorkspace(id: "hoge", name: "test workspace") {
+            workspace{ id, name }
+          }
+        }
+      MUTATION
+    }
+    assert_response(200, { data: { createWorkspace: { workspace: { id: "hoge", name: "test workspace" } } } })
 
-    get "/workspaces/hoge"
-    assert_response(200, { id: "hoge", name: "test workspace" })
+    post "/graphql", {
+      query: <<~QUERY
+        { workspace(id: "hoge") { id, name } }
+      QUERY
+    }
+    assert_response(200, { data: { workspace: { id: "hoge", name: "test workspace" } } })
   end
 
   private
@@ -44,3 +57,4 @@ class RequestTest < Test::Unit::TestCase
     [last_response.status, parsed_body]
   end
 end
+# rubocop:enable Metrics/MethodLength

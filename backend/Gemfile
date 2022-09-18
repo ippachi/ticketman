@@ -3,6 +3,7 @@
 source "https://rubygems.org"
 
 gem "dry-container"
+gem "graphql"
 gem "mongo"
 gem "rake"
 gem "sorbet-runtime"
@@ -20,6 +21,7 @@ group :development do
   gem "tapioca", require: false
 
   gem "rubocop", require: false
+  gem "rubocop-graphql", require: false
   gem "rubocop-rake", require: false
 end
 

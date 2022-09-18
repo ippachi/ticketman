@@ -1,4 +1,6 @@
-require: rubocop-rake
+require:
+  - rubocop-rake
+  - rubocop-graphql
 
 AllCops:
   NewCops: enable
@@ -13,4 +15,13 @@ Style/Documentation:
   Enabled: false
 
 Naming/HeredocDelimiterNaming:
+  Enabled: false
+
+GraphQL/ObjectDescription:
+  Enabled: false
+
+GraphQL/ArgumentDescription:
+  Enabled: false
+
+GraphQL/FieldDescription:
   Enabled: false

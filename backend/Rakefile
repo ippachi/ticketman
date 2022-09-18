@@ -3,6 +3,7 @@
 require "rake/testtask"
 require "rubocop/rake_task"
 require "rubycritic/rake_task"
+require "graphql/rake_task"
 
 Rake::TestTask.new(:test) do |t|
   t.libs << "test"
@@ -14,5 +15,11 @@ RuboCop::RakeTask.new
 RubyCritic::RakeTask.new do |task|
   task.options = "--format json"
 end
+GraphQL::RakeTask.new(
+  load_schema: lambda { |_task|
+    require_relative "./lib/ticketman"
+    Ticketman::Web::GraphQL::Schema
+  }
+)
 
 task default: %i[test rubocop rubycritic]
