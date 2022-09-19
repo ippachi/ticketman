@@ -15,8 +15,8 @@ gem "zeitwerk"
 gem "sinatra"
 gem "sinatra-contrib"
 
-gem "rack-cors"
 gem "rack-contrib"
+gem "rack-cors"
 
 group :development do
   gem "rubycritic", require: false
