@@ -6,6 +6,10 @@ module Ticketman
     class WorkspaceRepository
       class NotFoundError < StandardError; end
 
+      class DuplicateKeyError < StandardError
+        include Application::Errors::DuplicateKeyError
+      end
+
       extend T::Sig
       include Domain::Model::Workspace::WorkspaceRepository
 
@@ -17,6 +21,8 @@ module Ticketman
       sig { params(workspace: Domain::Model::Workspace::Workspace).void }
       def save(workspace)
         @workspaces.insert_one(workspace.serialize)
+      rescue Mongo::Error::OperationFailure => e
+        raise DuplicateKeyError if e.code == 11_000
       end
 
       sig { params(workspace_id: String).returns(Domain::Model::Workspace::Workspace) }

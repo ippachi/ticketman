@@ -14,35 +14,28 @@ export default function New() {
 
   return (
     <Layout>
-      <h1 className="text-3xl mb-4">ワークスペース新規作成</h1>
+      <h1 className="text-3xl mb-4">Create new workspace</h1>
 
       <form
         onSubmit={handleSubmit((data) => {
           createWorkspace.mutate(data, {
-            onSuccess: () => {
-              toast(
-                <div className="toast">
-                  <div className="alert alert-info">
-                    ワークスペースを作成しました
-                  </div>
-                </div>
-              );
-            },
+            onSuccess: () => toast("Workspace created."),
+            onError: (error) => toast(error.errors[0].message),
           });
         })}
       >
         <FormControl>
-          <Label htmlFor="id">ワークスペースID</Label>
+          <Label htmlFor="id">workspace ID</Label>
           <Input id="id" {...register("id")} />
         </FormControl>
 
         <FormControl>
-          <Label htmlFor="name">ワークスペース名</Label>
+          <Label htmlFor="name">workspace name</Label>
           <Input id="name" {...register("name")} />
         </FormControl>
 
         <div className="mt-4">
-          <Button type="submit">作成</Button>
+          <Button type="submit">Submit</Button>
         </div>
       </form>
     </Layout>

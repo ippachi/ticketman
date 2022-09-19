@@ -28,10 +28,10 @@ class RequestTest < Test::Unit::TestCase
     assert_response({ data: { workspace: { id: "hoge", name: "test workspace" } } })
   end
 
-  def test_internal_server_error
+  def test_application_error
     post_create_workspace_mutation
     post_create_workspace_mutation
-    assert_equal "Internal Server Error", parsed_body[:errors].first[:message]
+    assert_equal "Duplicate ID.", parsed_body[:errors].first[:message]
   end
 
   private

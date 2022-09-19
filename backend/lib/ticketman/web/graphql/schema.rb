@@ -8,6 +8,10 @@ module Ticketman
         query Types::Query
         mutation Types::Mutation
 
+        rescue_from(Application::Error) do |err|
+          raise ::GraphQL::ExecutionError, err
+        end
+
         rescue_from(StandardError) do
           raise ::GraphQL::ExecutionError, "Internal Server Error"
         end
