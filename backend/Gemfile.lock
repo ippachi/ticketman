@@ -53,6 +53,10 @@ GEM
       method_source (~> 1.0)
     public_suffix (5.0.0)
     rack (2.2.4)
+    rack-contrib (2.3.0)
+      rack (~> 2.0)
+    rack-cors (1.1.1)
+      rack (>= 2.0.0)
     rack-protection (2.2.2)
       rack
     rack-test (2.0.2)
@@ -172,6 +176,8 @@ DEPENDENCIES
   dry-container
   graphql
   mongo
+  rack-contrib
+  rack-cors
   rack-test
   rake
   rubocop

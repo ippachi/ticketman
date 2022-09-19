@@ -8,7 +8,7 @@ generates:
       - typescript-operations
       - typescript-react-query
     config:
-      fetcher: fetch
+      fetcher: graphql-request
   ./graphql.schema.json:
     plugins:
       - "introspection"

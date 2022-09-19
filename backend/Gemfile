@@ -15,6 +15,9 @@ gem "zeitwerk"
 gem "sinatra"
 gem "sinatra-contrib"
 
+gem "rack-cors"
+gem "rack-contrib"
+
 group :development do
   gem "rubycritic", require: false
   gem "sorbet"
