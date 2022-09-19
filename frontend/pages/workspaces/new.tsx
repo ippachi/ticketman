@@ -19,8 +19,8 @@ export default function New() {
       <form
         onSubmit={handleSubmit((data) => {
           createWorkspace.mutate(data, {
-            onSuccess: () => toast("Workspace created."),
-            onError: (error) => toast(error.errors[0].message),
+            onSuccess: () => toast("Workspace created.", "success"),
+            onError: (error) => toast(error.errors[0].message, "error"),
           });
         })}
       >
