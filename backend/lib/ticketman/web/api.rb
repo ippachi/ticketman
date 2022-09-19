@@ -10,8 +10,12 @@ module Ticketman
       extend T::Sig
 
       post "/graphql" do
-        result = Ticketman::Web::GraphQL::Schema.execute(params[:query])
-        json(result)
+        if params[:query]
+          result = Ticketman::Web::GraphQL::Schema.execute(params[:query])
+          json(result)
+        else
+          Ticketman::Web::GraphQL::Schema.to_json
+        end
       end
     end
   end
