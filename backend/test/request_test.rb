@@ -5,12 +5,8 @@ require "test_helper"
 require "rack/test"
 require "json"
 
-class RequestTest < Test::Unit::TestCase
+class RequestTest < TestCase
   include Rack::Test::Methods
-
-  def teardown
-    Ticketman::Container["gateway.mongo_client"].collections.each(&:delete_many)
-  end
 
   def app
     Ticketman::Web::API
@@ -32,6 +28,18 @@ class RequestTest < Test::Unit::TestCase
     post_create_workspace_mutation
     post_create_workspace_mutation
     assert_equal "Duplicate ID.", parsed_body[:errors].first[:message]
+  end
+
+  def test_standard_error
+    workspace_application_service_stub = Object.new
+    stub(workspace_application_service_stub).create_workspace { raise StandardError }
+    Ticketman::Container.stub("application.workspace.workspace_application_service", workspace_application_service_stub)
+    post_create_workspace_mutation
+  end
+
+  def test_post_empty
+    post "/graphql"
+    assert { !parsed_body[:data].nil? }
   end
 
   private

@@ -9,7 +9,9 @@ module Ticketman
           extend T::Sig
           extend T::Helpers
 
-          sig { params(workspace: Workspace).void }
+          interface!
+
+          sig { abstract.params(workspace: Workspace).void }
           def save(workspace); end
         end
       end

@@ -18,7 +18,7 @@ module Ticketman
         @workspaces = workspaces
       end
 
-      sig { params(workspace: Domain::Model::Workspace::Workspace).void }
+      sig { override.params(workspace: Domain::Model::Workspace::Workspace).void }
       def save(workspace)
         @workspaces.insert_one(workspace.serialize)
       rescue Mongo::Error::OperationFailure => e

@@ -1,7 +1,19 @@
-import {ComponentPropsWithoutRef, ForwardedRef, forwardRef} from "react"
+import { ComponentPropsWithoutRef, ForwardedRef, forwardRef } from "react";
 
-const Input = forwardRef(({id, onChange, onBlur, name}: ComponentPropsWithoutRef<"input">, ref: ForwardedRef<HTMLInputElement>) => {
-  return <input type="text" id={id} className="input input-bordered max-w-xs" ref={ref} name={name} onChange={onChange} onBlur={onBlur} />
-})
+const Input = forwardRef(
+  ({ id, onChange, onBlur, name }: ComponentPropsWithoutRef<"input">, ref: ForwardedRef<HTMLInputElement>) => {
+    return (
+      <input
+        type="text"
+        id={id}
+        className="input input-bordered max-w-xs"
+        ref={ref}
+        name={name}
+        onChange={onChange}
+        onBlur={onBlur}
+      />
+    );
+  }
+);
 
-export default Input
+export default Input;

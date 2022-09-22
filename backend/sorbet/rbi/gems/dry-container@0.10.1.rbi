@@ -332,6 +332,13 @@ module Dry::Container::Mixin
   # source://dry-container//lib/dry/container/mixin.rb#240
   def each_key(&block); end
 
+  # Enable stubbing functionality into the current container
+  #
+  # @api public
+  #
+  # source://dry-container//lib/dry/container/stub.rb#50
+  def enable_stubs!; end
+
   # Freeze the container. Nothing can be registered after freezing
   #
   # @api public
@@ -617,6 +624,38 @@ class Dry::Container::Resolver
   #
   # source://dry-container//lib/dry/container/resolver.rb#57
   def keys(container); end
+end
+
+# source://dry-container//lib/dry/container/stub.rb#5
+module Dry::Container::Stub
+  # Stubs have already been enabled turning this into a noop
+  #
+  # source://dry-container//lib/dry/container/stub.rb#36
+  def enable_stubs!; end
+
+  # Overrides resolve to look into stubbed keys first
+  #
+  # @api public
+  #
+  # source://dry-container//lib/dry/container/stub.rb#9
+  def resolve(key); end
+
+  # Add a stub to the container
+  #
+  # source://dry-container//lib/dry/container/stub.rb#14
+  def stub(key, value, &block); end
+
+  # Remove stubbed keys from the container
+  #
+  # source://dry-container//lib/dry/container/stub.rb#30
+  def unstub(*keys); end
+
+  private
+
+  # Stubs container
+  #
+  # source://dry-container//lib/dry/container/stub.rb#43
+  def _stubs; end
 end
 
 # @api public
