@@ -1,18 +1,12 @@
 import Layout from "../../components/layout";
 import { useCreateWorkspaceMutation } from "../../module/api";
 import { toast } from "../../module/toast";
-import * as yup from "yup";
 import CreateworkspaceForm from "../../components/forms/create-workspace-form";
-
-const schema = yup
-  .object({
-    id: yup.string().min(3).max(16).matches(new RegExp("^[a-z][a-z0-9_]+$")).required(),
-    name: yup.string().required(),
-  })
-  .required();
+import { useRouter } from "next/router";
 
 export default function New() {
   const createWorkspace = useCreateWorkspaceMutation();
+  const router = useRouter();
 
   return (
     <Layout>
@@ -21,7 +15,10 @@ export default function New() {
       <CreateworkspaceForm
         onSubmit={(data) => {
           createWorkspace.mutate(data, {
-            onSuccess: () => toast("Workspace created.", "success"),
+            onSuccess: () => {
+              toast("Workspace created.", "success");
+              router.push(`/workspaces/${data.id}`);
+            },
             onError: (error) => toast(error.errors[0].message, "error"),
           });
         }}

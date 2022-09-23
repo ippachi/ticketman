@@ -2,7 +2,9 @@ import { gql, GraphQLClient } from "graphql-request";
 import {
   CreateWorkspaceMutationVariables,
   useCreateWorkspaceMutation as useGeneratedCreateWorkspaceMutation,
+  useFetchWorkspaceQuery,
 } from "../src/generated/graphql";
+import { Workspace } from "./models";
 
 gql`
   mutation createWorkspace($id: ID!, $name: String!) {
@@ -11,6 +13,15 @@ gql`
         id
         name
       }
+    }
+  }
+`;
+
+gql`
+  query fetchWorkspace($id: String!) {
+    workspace(id: $id) {
+      id
+      name
     }
   }
 `;
@@ -34,5 +45,13 @@ export const useCreateWorkspaceMutation = (): UseMutateResult<CreateWorkspaceMut
           if (hooks.onError) return hooks.onError(JSON.parse(JSON.stringify(error)).response);
         },
       }),
+  };
+};
+
+export const useWorkspace = (id: string) => {
+  const { data } = useFetchWorkspaceQuery(client, { id });
+
+  return {
+    data: data?.workspace as Workspace | undefined,
   };
 };

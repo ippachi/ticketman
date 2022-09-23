@@ -1,15 +1,17 @@
-import { render, screen, waitFor } from "@testing-library/react";
+import { render, screen } from "@testing-library/react";
 import New from "../../../pages/workspaces/new";
 import userEvent from "@testing-library/user-event";
 import "./match-media.mock";
-import { useCreateWorkspaceMutation, UseMutateFunction } from "../../../module/api";
 
 const mutateMock = jest.fn();
+const pushMock = jest.fn();
 
 jest.mock("../../../module/api", () => ({
-  useCreateWorkspaceMutation: () => ({
-    mutate: mutateMock,
-  }),
+  useCreateWorkspaceMutation: () => ({ mutate: mutateMock }),
+}));
+
+jest.mock("next/router", () => ({
+  useRouter: () => ({ push: pushMock }),
 }));
 
 describe("New", () => {
@@ -21,6 +23,7 @@ describe("New", () => {
     await userEvent.click(screen.getByText("Submit"));
     expect(mutateMock).toHaveBeenCalledWith({ id: "test_workspace", name: "test workspace" }, expect.anything());
     await screen.findByText("Workspace created.");
+    expect(pushMock).toHaveBeenCalledWith("/workspaces/test_workspace");
   });
 
   test("Create workspace with error", async () => {
