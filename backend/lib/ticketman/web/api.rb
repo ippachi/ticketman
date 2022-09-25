@@ -17,7 +17,7 @@ module Ticketman
         allow do
           T.bind(self, Rack::Cors::Resources)
 
-          origins "http://localhost:3000"
+          origins "http://hoge.lvh.me:3000"
           resource "*", headers: :any, methods: [:post]
         end
       end

@@ -1,10 +1,10 @@
 import { useForm } from "react-hook-form";
-import Button from "../../components/button";
-import { FormControl } from "../../components/form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import InputWithLabel from "../../components/form/input-with-label";
 import { CreateWorkspaceMutationVariables } from "../../src/generated/graphql";
+import FormControl from "../form/form-control";
+import Button from "../button";
+import InputWithLabel from "../form/input-with-label";
 
 const schema = yup
   .object({

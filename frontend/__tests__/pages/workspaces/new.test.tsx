@@ -1,5 +1,5 @@
+import New from "@/pages/workspaces/new";
 import { render, screen } from "@testing-library/react";
-import New from "../../../pages/workspaces/new";
 import userEvent from "@testing-library/user-event";
 import "./match-media.mock";
 

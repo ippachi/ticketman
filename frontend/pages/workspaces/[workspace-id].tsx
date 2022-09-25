@@ -1,5 +1,5 @@
+import { useWorkspace } from "@/module/api";
 import { useRouter } from "next/router";
-import { useWorkspace } from "../../module/api";
 
 export default function Show() {
   const { isReady } = useRouter();
