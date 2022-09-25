@@ -1,0 +1,2 @@
+#!/bin/bash
+rerun "bundle exec rackup -p 2300"
