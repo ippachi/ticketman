@@ -14,6 +14,11 @@ module Ticketman
             @name = name
           end
 
+          sig { params(name: String).returns(Project) }
+          def create_project(name:)
+            Project.new(name:)
+          end
+
           sig { returns(T::Hash[Symbol, T.untyped]) }
           def serialize = { id: @id.serialize, name: @name }
         end

@@ -22,4 +22,10 @@ GraphQL::RakeTask.new(
   }
 )
 
-task default: %i[test rubocop rubycritic]
+desc "run srb tc"
+task :srb do
+  `bundle exec srb tc`
+  exit unless $CHILD_STATUS.success?
+end
+
+task default: %i[srb test rubocop rubycritic]
