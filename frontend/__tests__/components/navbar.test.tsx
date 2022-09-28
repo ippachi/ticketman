@@ -1,4 +1,4 @@
-import Dashboard from "@/pages/dashboard";
+import Navbar from "@/components/navbar";
 import { render, screen } from "@testing-library/react";
 
 const useWorkspaceMock = jest.fn();
@@ -9,10 +9,10 @@ jest.mock("@/module/api", () => ({
 
 jest.mock("@/module/workspace-id");
 
-describe("Show", () => {
-  test("render", () => {
+describe("Navbar", () => {
+  test("render workspace name", async () => {
     useWorkspaceMock.mockImplementation(() => ({ data: { name: "workspace 1" } }));
-    render(<Dashboard />);
-    expect(useWorkspaceMock).toHaveBeenCalledWith("test");
+    render(<Navbar />);
+    await screen.findByText("workspace 1");
   });
 });

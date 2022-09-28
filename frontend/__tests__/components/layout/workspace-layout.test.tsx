@@ -3,6 +3,7 @@ import { render, screen } from "@testing-library/react";
 
 const useWorkspaceIdMock = jest.fn(() => "hoge");
 jest.mock("@/module/workspace-id", () => ({ useWorkspaceId: () => useWorkspaceIdMock() }));
+jest.mock("@/module/api");
 
 describe("PublicLayout", () => {
   test("render", () => {
