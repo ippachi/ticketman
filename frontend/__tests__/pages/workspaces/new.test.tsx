@@ -1,7 +1,6 @@
 import New from "@/pages/workspaces/new";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import "./match-media.mock";
 
 const mutateMock = jest.fn();
 const pushMock = jest.fn();

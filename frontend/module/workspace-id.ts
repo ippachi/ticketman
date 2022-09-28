@@ -1,3 +1,4 @@
+/* istanbul ignore file */
 import { createContext, useContext, useEffect, useState } from "react";
 
 const workspaceIdContext = createContext("");
