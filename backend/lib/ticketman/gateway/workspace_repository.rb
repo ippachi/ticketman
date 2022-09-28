@@ -30,7 +30,7 @@ module Ticketman
         result = @workspaces.find(workspace_id)
         raise NotFoundError unless result
 
-        Domain::Model::Workspace::WorkspaceFactory.new.create(**T.unsafe(result))
+        Domain::Model::Workspace::WorkspaceFactory.create(**T.unsafe(result))
       end
     end
   end

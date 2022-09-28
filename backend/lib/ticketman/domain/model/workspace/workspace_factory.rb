@@ -9,7 +9,7 @@ module Ticketman
           extend T::Sig
 
           sig { params(id: String, name: String).returns(Workspace) }
-          def create(id:, name:)
+          def self.create(id:, name:)
             Workspace.new(id: Ticketman::Domain::Model::Workspace::WorkspaceID.new(id), name:)
           end
         end

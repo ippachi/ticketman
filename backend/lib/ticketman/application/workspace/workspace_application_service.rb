@@ -16,7 +16,7 @@ module Ticketman
 
         sig { params(id: String, name: String).returns(Domain::Model::Workspace::Workspace) }
         def create_workspace(id, name)
-          workspace = Domain::Model::Workspace::WorkspaceFactory.new.create(id:, name:)
+          workspace = Domain::Model::Workspace::WorkspaceFactory.create(id:, name:)
           begin
             @workspace_repo.save(workspace)
           rescue Errors::DuplicateKeyError
