@@ -3,7 +3,7 @@ import Layout from "./layout";
 import Error from "next/error";
 import { useWorkspaceId } from "@/module/workspace-id";
 
-export default function PublicLayout({ children }: { children: ReactNode }) {
+export default function PublicLayout({ children }: { children: ReactNode }): JSX.Element {
   const workspaceId = useWorkspaceId();
 
   if (workspaceId !== "") {

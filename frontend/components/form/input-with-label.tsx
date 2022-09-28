@@ -1,5 +1,5 @@
 import { ChangeEventHandler, FocusEventHandler, ForwardedRef, forwardRef } from "react";
-import { FieldError, FieldErrors, FieldErrorsImpl, UseFormReturn } from "react-hook-form";
+import { FieldError } from "react-hook-form";
 import Input from "./input";
 import InputError from "./input-error";
 import Label from "./label";
@@ -30,5 +30,7 @@ const InputWithLabel = forwardRef(
     );
   }
 );
+
+InputWithLabel.displayName = "InputWithLabel";
 
 export default InputWithLabel;

@@ -1,6 +1,6 @@
 import { FieldError } from "react-hook-form";
 
-export default function InputError({ error }: { error: FieldError | undefined }) {
+export default function InputError({ error }: { error: FieldError | undefined }): JSX.Element {
   return (
     <>
       {error && (

@@ -3,8 +3,8 @@ import {
   CreateWorkspaceMutationVariables,
   useCreateWorkspaceMutation as useGeneratedCreateWorkspaceMutation,
   useFetchWorkspaceQuery,
+  Workspace,
 } from "../src/generated/graphql";
-import { Workspace } from "./models";
 
 gql`
   mutation createWorkspace($id: ID!, $name: String!) {
@@ -26,29 +26,35 @@ gql`
   }
 `;
 
-type UseMutateResult<T> = { mutate: UseMutateFunction<T> };
-export type UseMutateFunction<T> = (data: T, hooks: UseMutateHooks) => void;
-type UseMutateHooks = {
-  onSuccess?: () => void;
-  onError?: (response: { errors: Array<{ message: string }> }) => void;
+type UseMutateResult<TData, TVariables> = { mutate: UseMutateFunction<TData, TVariables> };
+export type UseMutateFunction<TData, TVariables> = (variables: TVariables, hooks: UseMutateHooks<TData>) => void;
+type ErrorResponse = { errors: Array<{ message: string }> };
+type UseMutateHooks<TData> = {
+  onSuccess?: (data: TData) => Promise<void>;
+  onError?: (response: ErrorResponse) => void;
 };
 
 const client = new GraphQLClient("http://localhost:2300/graphql");
 
-export const useCreateWorkspaceMutation = (): UseMutateResult<CreateWorkspaceMutationVariables> => {
+export const useCreateWorkspaceMutation = (): UseMutateResult<Workspace, CreateWorkspaceMutationVariables> => {
   const mutation = useGeneratedCreateWorkspaceMutation<Error>(client);
   return {
     mutate: (variables, hooks) =>
       mutation.mutate(variables, {
-        onSuccess: hooks.onSuccess,
+        onSuccess: (data) => {
+          if (hooks.onSuccess) void hooks.onSuccess(data.createWorkspace?.workspace as Workspace);
+        },
         onError: (error) => {
-          if (hooks.onError) return hooks.onError(JSON.parse(JSON.stringify(error)).response);
+          if (hooks.onError) {
+            const response = (JSON.parse(JSON.stringify(error)) as { response: unknown }).response as ErrorResponse;
+            return hooks.onError(response);
+          }
         },
       }),
   };
 };
 
-export const useWorkspace = (id: string) => {
+export const useWorkspace = (id: string): { data: Workspace | undefined } => {
   const { data } = useFetchWorkspaceQuery(client, { id });
 
   return {

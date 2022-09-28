@@ -10,20 +10,23 @@ jest.mock("../../../module/api", () => ({
   useCreateWorkspaceMutation: () => ({ mutate: mutateMock }),
 }));
 
-jest.mock("next/router", () => ({
+jest.mock("@/module/router", () => ({
   useRouter: () => ({ push: pushMock }),
 }));
 
 describe("New", () => {
   test("Create workspace", async () => {
-    mutateMock.mockImplementationOnce((_, hooks) => hooks.onSuccess());
+    const workspaceId = "test_workspace";
+    mutateMock.mockImplementationOnce((_, hooks) => hooks.onSuccess({ id: workspaceId }));
     render(<New />);
-    await userEvent.type(screen.getByLabelText("ID"), "test_workspace");
+
+    await userEvent.type(screen.getByLabelText("ID"), workspaceId);
     await userEvent.type(screen.getByLabelText("Name"), "test workspace");
     await userEvent.click(screen.getByText("Submit"));
-    expect(mutateMock).toHaveBeenCalledWith({ id: "test_workspace", name: "test workspace" }, expect.anything());
+
+    expect(mutateMock).toHaveBeenCalledWith({ id: workspaceId, name: "test workspace" }, expect.anything());
     await screen.findByText("Workspace created.");
-    expect(pushMock).toHaveBeenCalledWith("/workspaces/test_workspace");
+    expect(pushMock).toHaveBeenCalledWith("/dashboard", { subdomain: workspaceId });
   });
 
   test("Create workspace with error", async () => {
@@ -32,12 +35,14 @@ describe("New", () => {
     await userEvent.type(screen.getByLabelText("ID"), "test_workspace");
     await userEvent.type(screen.getByLabelText("Name"), "test workspace");
     await userEvent.click(screen.getByText("Submit"));
+
     await screen.findByText("Duplicate ID.");
   });
 
   test("Create workspace validation", async () => {
     render(<New />);
     await userEvent.click(screen.getByText("Submit"));
+
     await screen.findByText("id must be at least 3 characters");
     await screen.findByText("name is a required field");
   });

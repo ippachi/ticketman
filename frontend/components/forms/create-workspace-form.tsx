@@ -17,7 +17,7 @@ export default function CreateworkspaceForm({
   onSubmit,
 }: {
   onSubmit: (data: CreateWorkspaceMutationVariables) => void;
-}) {
+}): JSX.Element {
   const {
     register,
     handleSubmit,
@@ -25,6 +25,7 @@ export default function CreateworkspaceForm({
   } = useForm({ resolver: yupResolver(schema), defaultValues: { id: "", name: "" } });
 
   return (
+    // eslint-disable-next-line @typescript-eslint/no-misused-promises
     <form onSubmit={handleSubmit(onSubmit)}>
       <FormControl>
         <InputWithLabel label="ID" error={errors.id} {...register("id")} />

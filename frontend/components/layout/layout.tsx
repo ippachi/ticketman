@@ -1,11 +1,11 @@
 import { Toaster } from "@/module/toast";
 import { ReactNode } from "react";
 
-export default function Layout({ children }: { children: ReactNode }) {
+export default function Layout({ children }: { children: ReactNode }): JSX.Element {
   return (
     <>
       {children}
-      <Toaster position="bottom-right" />
+      <Toaster />
     </>
   );
 }

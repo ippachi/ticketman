@@ -1,24 +1,17 @@
 import { Fragment } from "react";
-import reactHotToast, {
-  Toaster as ReactHotToastToaster,
-  ToasterProps as ReactHotToastToasterProps,
-  useToaster,
-} from "react-hot-toast";
+import reactHotToast, { ToasterProps as ReactHotToastToasterProps, useToaster } from "react-hot-toast";
 
-export const toast = (text: string, type: "info" | "success" | "error") => {
+export const toast = (text: string, type: "info" | "success" | "error"): void => {
   const alertType = { info: "alert-info", success: "alert-success", error: "alert-error" }[type];
   reactHotToast.custom(<div className={`alert ${alertType}`}>{text}</div>);
 };
 
-export const Toaster = ({ position }: ToasterProps) => {
-  const {
-    toasts,
-    handlers: { startPause, endPause },
-  } = useToaster();
+export const Toaster = (): JSX.Element => {
+  const { toasts } = useToaster();
   return (
     <div className="toast">
       {toasts.map((toast) => (
-        <Fragment key={toast.id}>{toast.message as any}</Fragment>
+        <Fragment key={toast.id}>{toast.message as JSX.Element}</Fragment>
       ))}
     </div>
   );

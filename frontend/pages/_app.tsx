@@ -5,7 +5,7 @@ import { useWorkspaceIdOrNull, WorkspaceIdProvider } from "@/module/workspace-id
 
 const queryClient = createClient();
 
-function MyApp({ Component, pageProps }: AppProps) {
+function MyApp({ Component, pageProps }: AppProps): JSX.Element {
   const workspaceId = useWorkspaceIdOrNull();
 
   if (workspaceId === null) {

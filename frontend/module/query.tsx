@@ -6,8 +6,14 @@ import { ReactNode } from "react";
 
 export const createClient = (): QueryClient => new QueryClientImpl({ defaultOptions: { queries: { suspense: true } } });
 
-export const QueryClientProvider = ({ client, children }: { client: QueryClient; children: ReactNode }) => {
+export const QueryClientProvider = ({
+  client,
+  children,
+}: {
+  client: QueryClient;
+  children: ReactNode;
+}): JSX.Element => {
   return <ReactQueryQueryClientProvider client={client as QueryClientImpl}>{children}</ReactQueryQueryClientProvider>;
 };
 
-export type QueryClient = {};
+export type QueryClient = unknown;

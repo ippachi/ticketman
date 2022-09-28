@@ -4,7 +4,7 @@ const workspaceIdContext = createContext("");
 
 export const WorkspaceIdProvider = workspaceIdContext.Provider;
 
-export const useWorkspaceIdOrNull = () => {
+export const useWorkspaceIdOrNull = (): string | null => {
   const [workspaceId, setWorkspaceId] = useState<string | null>(null);
 
   useEffect(() => {
@@ -14,6 +14,6 @@ export const useWorkspaceIdOrNull = () => {
   return workspaceId;
 };
 
-export const useWorkspaceId = () => {
+export const useWorkspaceId = (): string => {
   return useContext(workspaceIdContext);
 };

@@ -1,1 +1,1 @@
-export const useWorkspaceId = () => "test";
+export const useWorkspaceId = (): string => "test";

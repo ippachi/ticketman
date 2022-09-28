@@ -5,7 +5,7 @@ import { useWorkspaceId } from "@/module/workspace-id";
 import Drawer from "../drawer";
 import Navbar from "../navbar";
 
-export default function WorkspaceLayout({ children }: { children: ReactNode }) {
+export default function WorkspaceLayout({ children }: { children: ReactNode }): JSX.Element {
   const workspaceId = useWorkspaceId();
 
   if (workspaceId === "") {
