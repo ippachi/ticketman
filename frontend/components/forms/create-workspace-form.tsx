@@ -6,9 +6,12 @@ import FormControl from "../form/form-control";
 import Button from "../button";
 import InputWithLabel from "../form/input-with-label";
 
+const idMin = 3;
+const idMax = 32;
+
 const schema = yup
   .object({
-    id: yup.string().min(3).max(32).matches(new RegExp("^[a-z][a-z0-9_]+$")).required(),
+    id: yup.string().min(idMin).max(idMax).matches(new RegExp("^[a-z][a-z0-9_]+$")).required(),
     name: yup.string().required(),
   })
   .required();
@@ -31,7 +34,7 @@ export default function CreateworkspaceForm({
         <InputWithLabel label="ID" error={errors.id} {...register("id")} />
         <label className="label">
           <span className="label-text-alt">
-            * ID must be between 3 and 32 characters and consist of alphanumeric characters and underscores
+            * ID must be between {idMin} and {idMax} characters and consist of alphanumeric characters and underscores
           </span>
         </label>
       </FormControl>
