@@ -4,7 +4,7 @@ require "rake/testtask"
 require "rubocop/rake_task"
 require "rubycritic/rake_task"
 require "graphql/rake_task"
-require 'dotenv/tasks'
+require "dotenv/tasks"
 
 Rake::TestTask.new(:test) do |t|
   t.libs << "test"
@@ -35,7 +35,9 @@ task :environment do
 end
 
 namespace :db do
-  migrate_base = -> { "migrate -database mongodb://#{ENV["DATABASE_USER"]}:#{ENV["DATABASE_PASSWORD"]}@#{ENV["DATABASE_HOST"]}/#{ENV["DATABASE_NAME"]} -path db/migrations/" }
+  migrate_base = lambda {
+    "migrate -database mongodb://#{ENV.fetch('DATABASE_USER', nil)}:#{ENV.fetch('DATABASE_PASSWORD', nil)}@#{ENV.fetch('DATABASE_HOST', nil)}/#{ENV.fetch('DATABASE_NAME', nil)} -path db/migrations/"
+  }
 
   desc "Run migration"
   task migrate: :environment do
