@@ -30,8 +30,8 @@ type UseMutateResult<TData, TVariables> = { mutate: UseMutateFunction<TData, TVa
 export type UseMutateFunction<TData, TVariables> = (variables: TVariables, hooks: UseMutateHooks<TData>) => void;
 type ErrorResponse = { errors: Array<{ message: string }> };
 type UseMutateHooks<TData> = {
-  onSuccess?: (data: TData) => Promise<void>;
-  onError?: (response: ErrorResponse) => void;
+  onSuccess: (data: TData) => void;
+  onError: (response: ErrorResponse) => void;
 };
 
 const client = new GraphQLClient("http://localhost:2300/graphql");
@@ -42,13 +42,11 @@ export const useCreateWorkspaceMutation = (): UseMutateResult<Workspace, CreateW
     mutate: (variables, hooks) =>
       mutation.mutate(variables, {
         onSuccess: (data) => {
-          if (hooks.onSuccess) void hooks.onSuccess(data.createWorkspace?.workspace as Workspace);
+          hooks.onSuccess(data.createWorkspace?.workspace as Workspace);
         },
         onError: (error) => {
-          if (hooks.onError) {
-            const response = (JSON.parse(JSON.stringify(error)) as { response: unknown }).response as ErrorResponse;
-            return hooks.onError(response);
-          }
+          const response = (JSON.parse(JSON.stringify(error)) as { response: unknown }).response as ErrorResponse;
+          return hooks.onError(response);
         },
       }),
   };
@@ -57,7 +55,5 @@ export const useCreateWorkspaceMutation = (): UseMutateResult<Workspace, CreateW
 export const useWorkspace = (id: string): { data: Workspace | undefined } => {
   const { data } = useFetchWorkspaceQuery(client, { id });
 
-  return {
-    data: data?.workspace as Workspace | undefined,
-  };
+  return { data: data?.workspace };
 };
