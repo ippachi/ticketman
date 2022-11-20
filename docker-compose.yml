@@ -4,8 +4,7 @@ services:
     environment:
       MONGO_INITDB_ROOT_USERNAME: root
       MONGO_INITDB_ROOT_PASSWORD: password
-      MONGO_INITDB_DATABASE: ticketman-test
     volumes:
-      - ./mongo/initdb:/docker-entrypoint-initdb.d
+      - ./backend/mongo/initdb:/docker-entrypoint-initdb.d
     ports:
       - 27017:27017

@@ -1,9 +1,7 @@
 # frozen_string_literal: true
 # typed: strict
 
-require "dotenv"
-Dotenv.load(".env.#{ENV.fetch('APP_ENV', 'development')}")
-
+require_relative "./ticketman/bootstrap/environment"
 require "zeitwerk"
 require "sorbet-runtime"
 require "graphql"
@@ -13,6 +11,7 @@ loader = Zeitwerk::Loader.for_gem
 loader.inflector.inflect("api" => "API")
 loader.inflector.inflect("workspace_id" => "WorkspaceID")
 loader.inflector.inflect("graphql" => "GraphQL")
+loader.ignore("#{__dir__}/ticketman/bootstrap")
 loader.setup
 
 module Ticketman

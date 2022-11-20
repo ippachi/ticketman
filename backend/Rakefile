@@ -4,6 +4,7 @@ require "rake/testtask"
 require "rubocop/rake_task"
 require "rubycritic/rake_task"
 require "graphql/rake_task"
+require 'dotenv/tasks'
 
 Rake::TestTask.new(:test) do |t|
   t.libs << "test"
@@ -26,6 +27,32 @@ desc "run srb tc"
 task :srb do
   `bundle exec srb tc`
   exit unless $CHILD_STATUS.success?
+end
+
+desc "Load environment variables"
+task :environment do
+  require_relative "lib/ticketman/bootstrap/environment"
+end
+
+namespace :db do
+  migrate_base = -> { "migrate -database mongodb://#{ENV["DATABASE_USER"]}:#{ENV["DATABASE_PASSWORD"]}@#{ENV["DATABASE_HOST"]}/#{ENV["DATABASE_NAME"]} -path db/migrations/" }
+
+  desc "Run migration"
+  task migrate: :environment do
+    `#{migrate_base.call} up`
+  end
+
+  namespace :migrate do
+    desc "Run migration force"
+    task :force, ["version"] => :environment do |_, args|
+      `#{migrate_base.call} force #{args.version}`
+    end
+
+    desc "Run migration rollback"
+    task rollback: :environment do
+      `#{migrate_base.call} down`
+    end
+  end
 end
 
 task default: %i[srb test rubocop rubycritic]
