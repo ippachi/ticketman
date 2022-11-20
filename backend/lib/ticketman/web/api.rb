@@ -6,6 +6,8 @@ require "sinatra/json"
 require "rack/cors"
 require "rack/contrib"
 
+ENV["RACK_ENV"] = ENV.fetch("APP_ENV", nil)
+
 module Ticketman
   module Web
     class API < Sinatra::Application

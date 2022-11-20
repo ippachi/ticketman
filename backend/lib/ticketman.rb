@@ -1,6 +1,9 @@
 # frozen_string_literal: true
 # typed: strict
 
+require "dotenv"
+Dotenv.load(".env.#{ENV.fetch('APP_ENV', 'development')}")
+
 require "zeitwerk"
 require "sorbet-runtime"
 require "graphql"

@@ -10,6 +10,8 @@ end
 
 Warning.ignore(%r{warning: loading in progress, circular require considered harmful - .*/cgi/util.rb})
 
+ENV["APP_ENV"] = "test"
+
 require "test/unit"
 require "test/unit/rr"
 require "dry/container/stub"

@@ -33,3 +33,7 @@ group :test do
   gem "simplecov", require: false
   gem "test-unit-rr"
 end
+
+group :development, :test do
+  gem "dotenv", require: false
+end

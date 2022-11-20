@@ -9,7 +9,11 @@ module Ticketman
 
     namespace("gateway") do
       register("mongo_client", memoize: true) do
-        Mongo::Client.new(["127.0.0.1:27017"], user: "ticketman", password: "password", database: "ticketmanTestDB")
+        Mongo::Client.new(
+          [ENV.fetch("DATABASE_HOST", nil)], user: ENV.fetch("DATABASE_USER", nil),
+                                             password: ENV.fetch("DATABASE_PASSWORD", nil),
+                                             database: ENV.fetch("DATABASE_NAME", nil)
+        )
       end
 
       register("workspace_query") do
