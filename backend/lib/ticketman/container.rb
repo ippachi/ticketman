@@ -27,12 +27,25 @@ module Ticketman
       register("workspaces") do
         Gateway::Workspaces.new(resolve("mongo_client"))
       end
+
+      register("project_query") do
+        Gateway::ProjectQuery.new(resolve("projects"))
+      end
+
+      register("project_repo") do
+        Gateway::ProjectRepository.new(resolve("projects"))
+      end
+
+      register("projects") do
+        Gateway::Projects.new(resolve("mongo_client"))
+      end
     end
 
     namespace("application") do
       register("workspace.workspace_application_service") do
         Application::Workspace::WorkspaceApplicationService.new(
-          workspace_repo: Container.resolve("gateway.workspace_repo")
+          workspace_repo: Container.resolve("gateway.workspace_repo"),
+          project_repo: Container.resolve("gateway.project_repo")
         )
       end
     end

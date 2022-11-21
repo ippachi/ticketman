@@ -25,7 +25,7 @@ module Ticketman
         raise DuplicateKeyError if e.code == 11_000
       end
 
-      sig { params(workspace_id: String).returns(Domain::Model::Workspace::Workspace) }
+      sig { override.params(workspace_id: String).returns(Domain::Model::Workspace::Workspace) }
       def find(workspace_id)
         result = @workspaces.find(workspace_id)
         raise NotFoundError unless result

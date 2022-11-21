@@ -9,9 +9,15 @@ module Ticketman
 
         extend T::Sig
 
-        sig { params(workspace_repo: Domain::Model::Workspace::WorkspaceRepository).void }
-        def initialize(workspace_repo:)
+        sig do
+          params(
+            workspace_repo: Domain::Model::Workspace::WorkspaceRepository,
+            project_repo: Domain::Model::Workspace::ProjectRepository,
+          ).void
+        end
+        def initialize(workspace_repo:, project_repo:)
           @workspace_repo = workspace_repo
+          @project_repo = project_repo
         end
 
         sig { params(id: String, name: String).returns(Domain::Model::Workspace::Workspace) }
@@ -23,6 +29,14 @@ module Ticketman
             raise CreateWorkspaceDuplicateIDError, "Duplicate ID."
           end
           workspace
+        end
+
+        sig { params(workspace_id: String, name: String).returns(Domain::Model::Workspace::Project) }
+        def create_project(workspace_id:, name:)
+          workspace = @workspace_repo.find(workspace_id)
+          project = workspace.create_project(name:)
+          @project_repo.save(project)
+          project
         end
       end
     end

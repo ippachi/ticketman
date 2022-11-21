@@ -8,6 +8,9 @@ module Ticketman
         class Workspace
           extend T::Sig
 
+          sig { returns(WorkspaceID) }
+          attr_reader :id
+
           sig { params(id: WorkspaceID, name: String).void }
           def initialize(id:, name:)
             @id = id
@@ -16,7 +19,7 @@ module Ticketman
 
           sig { params(name: String).returns(Project) }
           def create_project(name:)
-            Project.new(name:)
+            Project.new(id: ProjectID.new("hoge"), name:)
           end
 
           sig { returns(T::Hash[Symbol, T.untyped]) }

@@ -5,7 +5,7 @@ module Ticketman
   module Domain
     module Model
       module Workspace
-        class WorkspaceID
+        class ProjectID
           extend T::Sig
 
           sig { params(value: String).void }

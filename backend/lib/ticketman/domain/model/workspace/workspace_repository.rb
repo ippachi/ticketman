@@ -13,6 +13,9 @@ module Ticketman
 
           sig { abstract.params(workspace: Workspace).void }
           def save(workspace); end
+
+          sig { abstract.params(workspace_id: String).returns(Workspace) }
+          def find(workspace_id); end
         end
       end
     end
