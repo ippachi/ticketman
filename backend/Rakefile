@@ -45,6 +45,11 @@ namespace :db do
   end
 
   namespace :migrate do
+    desc "Create migration"
+    task :create, ["name"] do |_, args|
+      `migrate create -ext json -dir db/migrations -seq #{args.name}`
+    end
+
     desc "Run migration force"
     task :force, ["version"] => :environment do |_, args|
       `#{migrate_base.call} force #{args.version}`

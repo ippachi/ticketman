@@ -1,0 +1,31 @@
+[
+  {
+    "create": "projects",
+    "validator": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "properties": {
+          "id": {
+            "bsonType": "string"
+          },
+          "name": {
+            "bsonType": "string"
+          }
+        },
+        "required": ["id", "name"]
+      }
+    }
+  },
+  {
+    "createIndexes": "projects",
+    "indexes": [
+      {
+        "key": {
+          "id": 1
+        },
+        "name": "projectsIdIndex",
+        "unique": true
+      }
+    ]
+  }
+]
