@@ -6,9 +6,8 @@ module Ticketman
     class ProjectRepository
       class NotFoundError < StandardError; end
 
-      include Domain::Model::Workspace::ProjectRepository
-
       extend T::Sig
+      include Domain::Model::Workspace::ProjectRepository
 
       sig { params(projects: Projects).void }
       def initialize(projects)

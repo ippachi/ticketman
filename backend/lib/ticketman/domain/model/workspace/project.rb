@@ -5,20 +5,15 @@ module Ticketman
   module Domain
     module Model
       module Workspace
-        class Project
-          extend T::Sig
-
-          sig { returns(ProjectID) }
-          attr_reader :id
-
+        class Project < Entity
           sig { params(id: ProjectID, name: String).void }
           def initialize(id:, name:)
-            @id = id
+            super(id)
             @name = name
           end
 
           sig { returns(T::Hash[Symbol, T.untyped]) }
-          def serialize = { id: @id.serialize, name: @name }
+          def serialize = { **super, name: @name }
         end
       end
     end
