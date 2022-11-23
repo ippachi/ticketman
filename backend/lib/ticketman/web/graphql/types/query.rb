@@ -9,12 +9,15 @@ module Ticketman
           extend T::Sig
 
           field :workspace, Types::Workspace, null: false do
-            argument :id, String
+            argument :id, ID
           end
 
-          def workspace(id:)
-            Container["gateway.workspace_query"].find(id)
+          field :project, Types::Project, null: false do
+            argument :id, ID
           end
+
+          def workspace(id:) = Container["gateway.workspace_query"].find(id)
+          def project(id:) = Container["gateway.project_query"].find(id)
         end
       end
     end

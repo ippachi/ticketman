@@ -7,6 +7,7 @@ module Ticketman
       module Types
         class Mutation < Types::BaseObject
           field :create_workspace, mutation: Mutations::CreateWorkspace
+          field :create_project, mutation: Mutations::CreateProject
         end
       end
     end
