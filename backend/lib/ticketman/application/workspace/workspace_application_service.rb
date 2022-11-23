@@ -12,7 +12,7 @@ module Ticketman
         sig do
           params(
             workspace_repo: Domain::Model::Workspace::WorkspaceRepository,
-            project_repo: Domain::Model::Workspace::ProjectRepository,
+            project_repo: Domain::Model::Workspace::ProjectRepository
           ).void
         end
         def initialize(workspace_repo:, project_repo:)

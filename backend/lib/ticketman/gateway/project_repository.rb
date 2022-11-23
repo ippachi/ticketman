@@ -15,7 +15,9 @@ module Ticketman
 
       private
 
-      sig { override.params(attributes: T::Hash[Symbol, T.untyped]).returns(Ticketman::Domain::Model::Workspace::Project) }
+      sig do
+        override.params(attributes: T::Hash[Symbol, T.untyped]).returns(Ticketman::Domain::Model::Workspace::Project)
+      end
       def build(attributes) = Domain::Model::Workspace::ProjectFactory.create(**T.unsafe(attributes))
     end
   end

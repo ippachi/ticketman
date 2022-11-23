@@ -23,9 +23,10 @@ module Ticketman
 
         def test_create_project
           workspace = create_workspace
-          project =
-            Container["application.workspace.workspace_application_service"].create_project(workspace_id: workspace.id.to_s,
-                                                                                            name: "hoge project")
+          project = Container["application.workspace.workspace_application_service"].create_project(
+            workspace_id: workspace.id.to_s,
+            name: "hoge project"
+          )
           assert Container["gateway.project_repo"].find(project.id)
         end
 

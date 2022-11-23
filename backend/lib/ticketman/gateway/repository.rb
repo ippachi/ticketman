@@ -31,7 +31,7 @@ module Ticketman
       def find(id)
         result = @relation.find(id.to_s)
         raise NotFoundError unless result
-        result
+
         build(result)
       end
 
