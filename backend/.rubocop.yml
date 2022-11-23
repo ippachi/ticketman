@@ -26,3 +26,6 @@ GraphQL/ArgumentDescription:
 
 GraphQL/FieldDescription:
   Enabled: false
+
+GraphQL/ExtractType:
+  Enabled: false

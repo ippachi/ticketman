@@ -18,3 +18,4 @@ require "dry/container/stub"
 require "ticketman"
 
 require_relative "./support/test_case"
+require_relative "./support/request_test_case"

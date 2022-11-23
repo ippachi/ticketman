@@ -10,8 +10,7 @@ module Ticketman
 
           sig { params(name: String, id: T.nilable(String)).returns(Project) }
           def self.create(name:, id: nil)
-            _id = Ticketman::Domain::Model::Workspace::ProjectID.new(id || ULID.generate)
-            Project.new(id: _id, name:)
+            Project.new(id: Ticketman::Domain::Model::Workspace::ProjectID.new(id || ULID.generate), name:)
           end
         end
       end

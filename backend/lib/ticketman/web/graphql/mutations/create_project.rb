@@ -6,8 +6,8 @@ module Ticketman
     module GraphQL
       module Mutations
         class CreateProject < ::GraphQL::Schema::Mutation
-          argument :workspace_id, ID
           argument :name, String
+          argument :workspace_id, ID
 
           field :project, Types::Project, null: false
 
