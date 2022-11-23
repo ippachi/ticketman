@@ -14,7 +14,7 @@ module Ticketman
 
           sig { params(name: String).returns(Project) }
           def create_project(name:)
-            Project.new(id: ProjectID.new("hoge"), name:)
+            ProjectFactory.create(name:)
           end
 
           sig { returns(T::Hash[Symbol, T.untyped]) }

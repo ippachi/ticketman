@@ -6,6 +6,7 @@ require "zeitwerk"
 require "sorbet-runtime"
 require "graphql"
 require "mongo"
+require "ulid"
 
 loader = Zeitwerk::Loader.for_gem
 loader.inflector.inflect("api" => "API")

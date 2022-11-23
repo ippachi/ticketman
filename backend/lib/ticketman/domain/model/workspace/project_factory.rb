@@ -8,9 +8,10 @@ module Ticketman
         class ProjectFactory
           extend T::Sig
 
-          sig { params(id: String, name: String).returns(Project) }
-          def self.create(id:, name:)
-            Project.new(id: Ticketman::Domain::Model::Workspace::ProjectID.new(id), name:)
+          sig { params(name: String, id: T.nilable(String)).returns(Project) }
+          def self.create(name:, id: nil)
+            _id = Ticketman::Domain::Model::Workspace::ProjectID.new(id || ULID.generate)
+            Project.new(id: _id, name:)
           end
         end
       end
