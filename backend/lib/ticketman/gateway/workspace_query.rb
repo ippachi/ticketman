@@ -3,18 +3,13 @@
 
 module Ticketman
   module Gateway
-    class WorkspaceQuery
-      extend T::Sig
+    class WorkspaceQuery < Query
       include Web::WorkspaceQuery
 
       sig { params(workspaces: Workspaces).void }
       def initialize(workspaces)
-        @workspaces = workspaces
-      end
-
-      sig { override.params(id: String).returns(T.untyped) }
-      def find(id)
-        @workspaces.find(id)
+        super
+        @relation = workspaces
       end
     end
   end
