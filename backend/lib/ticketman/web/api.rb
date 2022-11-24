@@ -19,7 +19,7 @@ module Ticketman
         allow do
           T.bind(self, Rack::Cors::Resources)
 
-          origins { |source, _| T.must(URI(source).hostname).match?(/lvh\.me$/) }
+          origins "http://localhost:3000"
           resource "*", headers: :any, methods: [:post]
         end
       end

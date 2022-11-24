@@ -1,24 +1,17 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { createClient, QueryClientProvider } from "@/module/query";
-import { useOrganizationIdOrNull, OrganizationIdProvider } from "@/module/organization-id";
+import { ReactQueryDevtools } from "@tanstack/react-query-devtools";
 
 const queryClient = createClient();
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-  const organizationId = useOrganizationIdOrNull();
-
-  if (organizationId === null) {
-    return <></>;
-  } else {
-    return (
-      <QueryClientProvider client={queryClient}>
-        <OrganizationIdProvider value={organizationId}>
-          <Component {...pageProps} />
-        </OrganizationIdProvider>
-      </QueryClientProvider>
-    );
-  }
+  return (
+    <QueryClientProvider client={queryClient}>
+      <Component {...pageProps} />
+      <ReactQueryDevtools initialIsOpen={false} />
+    </QueryClientProvider>
+  );
 }
 
 export default MyApp;

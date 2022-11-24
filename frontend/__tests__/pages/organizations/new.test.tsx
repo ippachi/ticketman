@@ -9,7 +9,7 @@ jest.mock("../../../module/api", () => ({
   useCreateOrganizationMutation: () => ({ mutate: mutateMock }),
 }));
 
-jest.mock("@/module/router", () => ({
+jest.mock("next/router", () => ({
   useRouter: () => ({ push: pushMock }),
 }));
 
@@ -25,7 +25,7 @@ describe("New", () => {
 
     expect(mutateMock).toHaveBeenCalledWith({ id: organizationId, name: "test organization" }, expect.anything());
     await screen.findByText("Organization created.");
-    expect(pushMock).toHaveBeenCalledWith("/dashboard", { subdomain: organizationId });
+    expect(pushMock).toHaveBeenCalledWith(`/orgs/${organizationId}`);
   });
 
   test("Create organization with error", async () => {

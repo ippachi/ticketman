@@ -30,7 +30,7 @@ type UseMutateResult<TData, TVariables> = { mutate: UseMutateFunction<TData, TVa
 export type UseMutateFunction<TData, TVariables> = (variables: TVariables, hooks: UseMutateHooks<TData>) => void;
 type ErrorResponse = { errors: Array<{ message: string }> };
 type UseMutateHooks<TData> = {
-  onSuccess: (data: TData) => void;
+  onSuccess: (data: TData) => Promise<void>;
   onError: (response: ErrorResponse) => void;
 };
 
@@ -38,8 +38,7 @@ const client = new GraphQLClient("http://localhost:2300/graphql");
 
 export const useCreateOrganizationMutation = (): UseMutateResult<Organization, CreateOrganizationMutationVariables> => {
   const mutation = useGeneratedCreateOrganizationMutation<Error>(client);
-  return {
-    mutate: (variables, hooks) =>
+  return { mutate: (variables, hooks) =>
       mutation.mutate(variables, {
         onSuccess: (data) => {
           hooks.onSuccess(data.createOrganization?.organization as Organization);
@@ -52,8 +51,8 @@ export const useCreateOrganizationMutation = (): UseMutateResult<Organization, C
   };
 };
 
-export const useOrganization = (id: string): { data: Organization | undefined } => {
-  const { data } = useFetchOrganizationQuery(client, { id });
+export const useOrganization = (id: string): { data: Organization | undefined, isLoading: boolean } => {
+  const { data, isLoading } = useFetchOrganizationQuery(client, { id });
 
-  return { data: data?.organization };
+  return { data: data?.organization, isLoading };
 };

@@ -2,7 +2,7 @@ import { useCreateOrganizationMutation } from "@/module/api";
 import { toast } from "@/module/toast";
 import CreateorganizationForm from "@/components/forms/create-organization-form";
 import PublicLayout from "@/components/layout/public-layout";
-import { useRouter } from "@/module/router";
+import { useRouter } from "next/router";
 
 export default function New(): JSX.Element {
   const createOrganization = useCreateOrganizationMutation();
@@ -17,7 +17,7 @@ export default function New(): JSX.Element {
           createOrganization.mutate(data, {
             onSuccess: async (organization) => {
               toast("Organization created.", "success");
-              await router.push("/dashboard", { subdomain: organization.id });
+              await router.push(`/orgs/${organization.id}`);
             },
             onError: (error) => toast(error.errors[0].message, "error"),
           });

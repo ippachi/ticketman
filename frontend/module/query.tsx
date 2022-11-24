@@ -4,7 +4,7 @@ import {
 } from "@tanstack/react-query";
 import { ReactNode } from "react";
 
-export const createClient = (): QueryClient => new QueryClientImpl({ defaultOptions: { queries: { suspense: true } } });
+export const createClient = (): QueryClient => new QueryClientImpl();
 
 export const QueryClientProvider = ({
   client,
