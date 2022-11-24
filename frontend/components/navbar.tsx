@@ -1,13 +1,13 @@
-import { useWorkspace } from "@/module/api";
-import { useWorkspaceId } from "@/module/workspace-id";
+import { useOrganization } from "@/module/api";
+import { useOrganizationId } from "@/module/organization-id";
 
 export default function Navbar(): JSX.Element {
-  const workspaceId = useWorkspaceId();
-  const { data: workspace } = useWorkspace(workspaceId);
+  const organizationId = useOrganizationId();
+  const { data: organization } = useOrganization(organizationId);
 
   return (
     <div className="navbar bg-base-100 shadow" data-testid="navbar">
-      <a className="btn btn-ghost normal-case text-xl">{workspace?.name}</a>
+      <a className="btn btn-ghost normal-case text-xl">{organization?.name}</a>
     </div>
   );
 }

@@ -1,9 +1,9 @@
 import PublicLayout from "@/components/layout/public-layout";
 import { render, screen } from "@testing-library/react";
 
-const useWorkspaceIdMock = jest.fn(() => "");
+const useOrganizationIdMock = jest.fn(() => "");
 
-jest.mock("@/module/workspace-id", () => ({ useWorkspaceId: () => useWorkspaceIdMock() }));
+jest.mock("@/module/organization-id", () => ({ useOrganizationId: () => useOrganizationIdMock() }));
 
 describe("PublicLayout", () => {
   test("render", () => {
@@ -11,7 +11,7 @@ describe("PublicLayout", () => {
   });
 
   test("with subdomain", async () => {
-    useWorkspaceIdMock.mockImplementationOnce(() => "hoge");
+    useOrganizationIdMock.mockImplementationOnce(() => "hoge");
     render(<PublicLayout>{}</PublicLayout>);
     await screen.findByText("404");
   });

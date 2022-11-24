@@ -1,15 +1,15 @@
 import { gql, GraphQLClient } from "graphql-request";
 import {
-  CreateWorkspaceMutationVariables,
-  useCreateWorkspaceMutation as useGeneratedCreateWorkspaceMutation,
-  useFetchWorkspaceQuery,
-  Workspace,
+  CreateOrganizationMutationVariables,
+  useCreateOrganizationMutation as useGeneratedCreateOrganizationMutation,
+  useFetchOrganizationQuery,
+  Organization,
 } from "../src/generated/graphql";
 
 gql`
-  mutation createWorkspace($id: ID!, $name: String!) {
-    createWorkspace(id: $id, name: $name) {
-      workspace {
+  mutation createOrganization($id: ID!, $name: String!) {
+    createOrganization(id: $id, name: $name) {
+      organization {
         id
         name
       }
@@ -18,8 +18,8 @@ gql`
 `;
 
 gql`
-  query fetchWorkspace($id: String!) {
-    workspace(id: $id) {
+  query fetchOrganization($id: String!) {
+    organization(id: $id) {
       id
       name
     }
@@ -36,13 +36,13 @@ type UseMutateHooks<TData> = {
 
 const client = new GraphQLClient("http://localhost:2300/graphql");
 
-export const useCreateWorkspaceMutation = (): UseMutateResult<Workspace, CreateWorkspaceMutationVariables> => {
-  const mutation = useGeneratedCreateWorkspaceMutation<Error>(client);
+export const useCreateOrganizationMutation = (): UseMutateResult<Organization, CreateOrganizationMutationVariables> => {
+  const mutation = useGeneratedCreateOrganizationMutation<Error>(client);
   return {
     mutate: (variables, hooks) =>
       mutation.mutate(variables, {
         onSuccess: (data) => {
-          hooks.onSuccess(data.createWorkspace?.workspace as Workspace);
+          hooks.onSuccess(data.createOrganization?.organization as Organization);
         },
         onError: (error) => {
           const response = (JSON.parse(JSON.stringify(error)) as { response: unknown }).response as ErrorResponse;
@@ -52,8 +52,8 @@ export const useCreateWorkspaceMutation = (): UseMutateResult<Workspace, CreateW
   };
 };
 
-export const useWorkspace = (id: string): { data: Workspace | undefined } => {
-  const { data } = useFetchWorkspaceQuery(client, { id });
+export const useOrganization = (id: string): { data: Organization | undefined } => {
+  const { data } = useFetchOrganizationQuery(client, { id });
 
-  return { data: data?.workspace };
+  return { data: data?.organization };
 };

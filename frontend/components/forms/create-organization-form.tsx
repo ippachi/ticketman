@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CreateWorkspaceMutationVariables } from "../../src/generated/graphql";
+import { CreateOrganizationMutationVariables } from "../../src/generated/graphql";
 import FormControl from "../form/form-control";
 import Button from "../button";
 import InputWithLabel from "../form/input-with-label";
@@ -16,10 +16,10 @@ const schema = yup
   })
   .required();
 
-export default function CreateworkspaceForm({
+export default function CreateorganizationForm({
   onSubmit,
 }: {
-  onSubmit: (data: CreateWorkspaceMutationVariables) => void;
+  onSubmit: (data: CreateOrganizationMutationVariables) => void;
 }): JSX.Element {
   const {
     register,

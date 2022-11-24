@@ -1,18 +1,18 @@
 import Navbar from "@/components/navbar";
 import { render, screen } from "@testing-library/react";
 
-const useWorkspaceMock = jest.fn();
+const useOrganizationMock = jest.fn();
 
 jest.mock("@/module/api", () => ({
-  useWorkspace: (workspaceId: string) => useWorkspaceMock(workspaceId),
+  useOrganization: (organizationId: string) => useOrganizationMock(organizationId),
 }));
 
-jest.mock("@/module/workspace-id");
+jest.mock("@/module/organization-id");
 
 describe("Navbar", () => {
-  test("render workspace name", async () => {
-    useWorkspaceMock.mockImplementation(() => ({ data: { name: "workspace 1" } }));
+  test("render organization name", async () => {
+    useOrganizationMock.mockImplementation(() => ({ data: { name: "organization 1" } }));
     render(<Navbar />);
-    await screen.findByText("workspace 1");
+    await screen.findByText("organization 1");
   });
 });

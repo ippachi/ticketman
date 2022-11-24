@@ -1,5 +1,5 @@
-import { Workspace } from "src/generated/graphql";
+import { Organization } from "src/generated/graphql";
 
-const useWorkspace = (): Workspace => ({ id: "workspace_id", name: "workspace name" });
+const useOrganization = (): Organization => ({ id: "organization_id", name: "organization name" });
 
-export { useWorkspace };
+export { useOrganization };

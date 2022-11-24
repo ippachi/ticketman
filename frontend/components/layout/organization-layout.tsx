@@ -1,14 +1,14 @@
 import Layout from "./layout";
 import { ReactNode } from "react";
 import Error from "next/error";
-import { useWorkspaceId } from "@/module/workspace-id";
+import { useOrganizationId } from "@/module/organization-id";
 import Drawer from "../drawer";
 import Navbar from "../navbar";
 
-export default function WorkspaceLayout({ children }: { children: ReactNode }): JSX.Element {
-  const workspaceId = useWorkspaceId();
+export default function OrganizationLayout({ children }: { children: ReactNode }): JSX.Element {
+  const organizationId = useOrganizationId();
 
-  if (workspaceId === "") {
+  if (organizationId === "") {
     return <Error statusCode={404} />;
   } else {
     return (

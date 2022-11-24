@@ -1,21 +1,21 @@
 import "../styles/globals.css";
 import type { AppProps } from "next/app";
 import { createClient, QueryClientProvider } from "@/module/query";
-import { useWorkspaceIdOrNull, WorkspaceIdProvider } from "@/module/workspace-id";
+import { useOrganizationIdOrNull, OrganizationIdProvider } from "@/module/organization-id";
 
 const queryClient = createClient();
 
 function MyApp({ Component, pageProps }: AppProps): JSX.Element {
-  const workspaceId = useWorkspaceIdOrNull();
+  const organizationId = useOrganizationIdOrNull();
 
-  if (workspaceId === null) {
+  if (organizationId === null) {
     return <></>;
   } else {
     return (
       <QueryClientProvider client={queryClient}>
-        <WorkspaceIdProvider value={workspaceId}>
+        <OrganizationIdProvider value={organizationId}>
           <Component {...pageProps} />
-        </WorkspaceIdProvider>
+        </OrganizationIdProvider>
       </QueryClientProvider>
     );
   }
