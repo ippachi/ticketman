@@ -9,11 +9,11 @@ module Ticketman
           extend T::Sig
 
           field :organization, Types::Organization, null: false do
-            argument :id, ID
+            argument :id, String
           end
 
           field :project, Types::Project, null: false do
-            argument :id, ID
+            argument :id, String
           end
 
           def organization(id:) = Container["gateway.organization_query"].find(id)
