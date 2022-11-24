@@ -4,8 +4,8 @@
 module Ticketman
   module Domain
     module Model
-      module Workspace
-        class WorkspaceID < Identifier; end
+      module Organization
+        class ProjectID < Identifier; end
       end
     end
   end

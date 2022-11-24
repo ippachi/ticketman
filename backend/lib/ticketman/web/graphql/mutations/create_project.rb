@@ -7,13 +7,13 @@ module Ticketman
       module Mutations
         class CreateProject < ::GraphQL::Schema::Mutation
           argument :name, String
-          argument :workspace_id, ID
+          argument :organization_id, ID
 
           field :project, Types::Project, null: false
 
-          def resolve(workspace_id:, name:)
-            project = Container["application.workspace.workspace_application_service"].create_project(
-              workspace_id:, name:
+          def resolve(organization_id:, name:)
+            project = Container["application.organization.organization_application_service"].create_project(
+              organization_id:, name:
             )
             { project: project.serialize }
           end

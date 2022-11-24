@@ -10,7 +10,7 @@ require "ulid"
 
 loader = Zeitwerk::Loader.for_gem
 loader.inflector.inflect("api" => "API")
-loader.inflector.inflect("workspace_id" => "WorkspaceID")
+loader.inflector.inflect("organization_id" => "OrganizationID")
 loader.inflector.inflect("project_id" => "ProjectID")
 loader.inflector.inflect("graphql" => "GraphQL")
 loader.ignore("#{__dir__}/ticketman/bootstrap")

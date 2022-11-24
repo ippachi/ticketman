@@ -4,9 +4,9 @@
 module Ticketman
   module Domain
     module Model
-      module Workspace
-        class Workspace < Entity
-          sig { params(id: WorkspaceID, name: String).void }
+      module Organization
+        class Organization < Entity
+          sig { params(id: OrganizationID, name: String).void }
           def initialize(id:, name:)
             super(id)
             @name = name

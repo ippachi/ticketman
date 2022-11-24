@@ -8,7 +8,7 @@ module Ticketman
         class Query < ::GraphQL::Schema::Object
           extend T::Sig
 
-          field :workspace, Types::Workspace, null: false do
+          field :organization, Types::Organization, null: false do
             argument :id, ID
           end
 
@@ -16,7 +16,7 @@ module Ticketman
             argument :id, ID
           end
 
-          def workspace(id:) = Container["gateway.workspace_query"].find(id)
+          def organization(id:) = Container["gateway.organization_query"].find(id)
           def project(id:) = Container["gateway.project_query"].find(id)
         end
       end

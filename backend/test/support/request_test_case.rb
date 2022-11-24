@@ -13,35 +13,35 @@ class RequestTestCase < TestCase
 
   def parsed_body = JSON.parse(last_response.body, symbolize_names: true)
 
-  def post_create_workspace_mutation
+  def post_create_organization_mutation
     post "/graphql", {
       query: <<~MUTATION
         mutation {
-          createWorkspace(id: "hoge", name: "test workspace") {
-            workspace{ id, name }
+          createOrganization(id: "hoge", name: "test organization") {
+            organization{ id, name }
           }
         }
       MUTATION
     }
 
-    parsed_body.dig(:data, :createWorkspace, :workspace)
+    parsed_body.dig(:data, :createOrganization, :organization)
   end
 
-  def post_workspace_query
+  def post_organization_query
     post "/graphql", {
       query: <<~QUERY
-        { workspace(id: "hoge") { id, name } }
+        { organization(id: "hoge") { id, name } }
       QUERY
     }
 
-    parsed_body.dig(:data, :workspace)
+    parsed_body.dig(:data, :organization)
   end
 
   def post_create_project_mutation
     post "/graphql", {
       query: <<~MUTATION
         mutation {
-          createProject(workspaceId: "hoge", name: "test project") {
+          createProject(organizationId: "hoge", name: "test project") {
             project{ id, name }
           }
         }

@@ -1,6 +1,6 @@
 [
   {
-    "create": "workspaces",
+    "create": "organizations",
     "validator": {
       "$jsonSchema": {
         "bsonType": "object",
@@ -17,13 +17,13 @@
     }
   },
   {
-    "createIndexes": "workspaces",
+    "createIndexes": "organizations",
     "indexes": [
       {
         "key": {
           "id": 1
         },
-        "name": "workspacesIdIndex",
+        "name": "organizationsIdIndex",
         "unique": true
       }
     ]

@@ -3,7 +3,7 @@
 
 module Ticketman
   module Web
-    module WorkspaceQuery
+    module OrganizationQuery
       extend T::Sig
       extend T::Helpers
 

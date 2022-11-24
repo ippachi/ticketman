@@ -4,7 +4,7 @@
 module Ticketman
   module Domain
     module Model
-      module Workspace
+      module Organization
         module ProjectRepository
           extend T::Sig
           extend T::Helpers

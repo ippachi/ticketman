@@ -4,7 +4,7 @@
 module Ticketman
   module Domain
     module Model
-      module Workspace
+      module Organization
         class Project < Entity
           sig { params(id: ProjectID, name: String).void }
           def initialize(id:, name:)

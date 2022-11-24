@@ -3,13 +3,13 @@
 
 module Ticketman
   module Gateway
-    class Workspaces < Relation
+    class Organizations < Relation
       extend T::Sig
 
       private
 
       sig { override.returns(Symbol) }
-      def name = :workspaces
+      def name = :organizations
     end
   end
 end
