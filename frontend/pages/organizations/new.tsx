@@ -15,9 +15,9 @@ export default function New(): JSX.Element {
       <CreateorganizationForm
         onSubmit={(data): void => {
           createOrganization.mutate(data, {
-            onSuccess: async (organization) => {
+            onSuccess: (organization) => {
               toast("Organization created.", "success");
-              await router.push(`/orgs/${organization.id}`);
+              void router.push(`/orgs/${organization.id}`);
             },
             onError: (error) => toast(error.errors[0].message, "error"),
           });

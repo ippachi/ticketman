@@ -30,7 +30,7 @@ type UseMutateResult<TData, TVariables> = { mutate: UseMutateFunction<TData, TVa
 export type UseMutateFunction<TData, TVariables> = (variables: TVariables, hooks: UseMutateHooks<TData>) => void;
 type ErrorResponse = { errors: Array<{ message: string }> };
 type UseMutateHooks<TData> = {
-  onSuccess: (data: TData) => Promise<void>;
+  onSuccess: (data: TData) => void;
   onError: (response: ErrorResponse) => void;
 };
 
