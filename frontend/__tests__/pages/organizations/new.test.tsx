@@ -1,11 +1,12 @@
 import New from "@/pages/organizations/new";
-import { render, screen } from "@testing-library/react";
+import { screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { render } from "__tests__/test-utils";
 
 const mutateMock = jest.fn();
 const pushMock = jest.fn();
 
-jest.mock("../../../module/api", () => ({
+jest.mock("@/module/api", () => ({
   useCreateOrganizationMutation: () => ({ mutate: mutateMock }),
 }));
 

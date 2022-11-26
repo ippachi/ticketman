@@ -5,6 +5,8 @@ jest.mock("next/router", () => ({
   useRouter: () => ({ query: { organizationId: "test-org" }, isReady: true }),
 }));
 
+jest.mock("@/module/api");
+
 describe("/orgs/[organizationId]", () => {
   test("Show organization", async () => {
     render(<Index />);

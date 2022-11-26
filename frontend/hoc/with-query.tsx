@@ -7,17 +7,13 @@ const withQuery = <QueryType extends Record<string, string>>() => {
   ): ((props: OriginalProps) => JSX.Element) => {
     const WithQuery = (props: OriginalProps): JSX.Element => {
       const { query, isReady } = useRouter();
-      const [ready, setReady] = useState(false);
+      const [ready, setReady] = useState(isReady);
 
       useEffect(() => {
         setReady(isReady);
       }, [isReady]);
 
-      if (ready) {
-        return <WrappedComponent query={query as QueryType} {...props} />;
-      } else {
-        return <></>;
-      }
+      return ready ? <WrappedComponent query={query as QueryType} {...props} /> : <></>;
     };
     return WithQuery;
   };

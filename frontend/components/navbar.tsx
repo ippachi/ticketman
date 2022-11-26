@@ -1,9 +1,10 @@
 import { useOrganization } from "@/module/api";
-import { useOrganizationId } from "@/module/organization-id";
+import withQuery from "hoc/with-query";
 
-export default function Navbar(): JSX.Element {
-  const organizationId = useOrganizationId();
-  const { data: organization } = useOrganization(organizationId);
+type QueryType = { organizationId: string }
+
+const Navbar = ({ query }: { query: QueryType }): JSX.Element => {
+  const { data: organization } = useOrganization(query.organizationId);
 
   return (
     <div className="navbar bg-base-100 shadow" data-testid="navbar">
@@ -11,3 +12,5 @@ export default function Navbar(): JSX.Element {
     </div>
   );
 }
+
+export default withQuery<QueryType>()(Navbar);

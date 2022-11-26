@@ -3,11 +3,13 @@ import { render, screen } from "@testing-library/react";
 
 const useOrganizationMock = jest.fn();
 
+jest.mock("next/router", () => ({
+  useRouter: () => ({ query: { organizationId: "test-org" }, isReady: true }),
+}));
+
 jest.mock("@/module/api", () => ({
   useOrganization: (organizationId: string) => useOrganizationMock(organizationId),
 }));
-
-jest.mock("@/module/organization-id");
 
 describe("Navbar", () => {
   test("render organization name", async () => {
