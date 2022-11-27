@@ -6,9 +6,7 @@ module Ticketman
     class Repository
       class NotFoundError < StandardError; end
 
-      class DuplicateKeyError < StandardError
-        include Application::Errors::DuplicateKeyError
-      end
+      class DuplicateKeyError < Application::Errors::DuplicateKeyError; end
 
       extend T::Sig
       extend T::Helpers

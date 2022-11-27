@@ -4,11 +4,7 @@
 module Ticketman
   module Application
     module Errors
-      module DuplicateKeyError
-        extend T::Helpers
-
-        interface!
-      end
+      class DuplicateKeyError < StandardError; end
     end
   end
 end
