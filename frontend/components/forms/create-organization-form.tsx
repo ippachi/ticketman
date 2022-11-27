@@ -11,7 +11,7 @@ const idMax = 32;
 
 const schema = yup
   .object({
-    id: yup.string().min(idMin).max(idMax).matches(new RegExp("^[a-z][a-z0-9\-]+$")).required(),
+    id: yup.string().min(idMin).max(idMax).matches(new RegExp("^[a-z][a-z0-9-]+$")).required(),
     name: yup.string().required(),
   })
   .required();

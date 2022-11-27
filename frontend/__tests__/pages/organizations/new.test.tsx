@@ -16,7 +16,7 @@ jest.mock("next/router", () => ({
 
 describe("New", () => {
   test("Create organization", async () => {
-    const organizationId = "test_organization";
+    const organizationId = "test-organization";
     mutateMock.mockImplementationOnce((_, hooks) => hooks.onSuccess({ id: organizationId }));
     render(<New />);
 
@@ -32,7 +32,7 @@ describe("New", () => {
   test("Create organization with error", async () => {
     mutateMock.mockImplementationOnce((_, hooks) => hooks.onError({ errors: [{ message: "Duplicate ID." }] }));
     render(<New />);
-    await userEvent.type(screen.getByLabelText("ID"), "test_organization");
+    await userEvent.type(screen.getByLabelText("ID"), "test-organization");
     await userEvent.type(screen.getByLabelText("Name"), "test organization");
     await userEvent.click(screen.getByText("Submit"));
 
