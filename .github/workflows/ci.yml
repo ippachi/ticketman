@@ -1,0 +1,70 @@
+name: CI
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+jobs:
+  Backend-CI:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./backend
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+          working-directory: ./backend
+      - name: Install golang-migrate
+        run: |
+          curl -LO http://github.com/golang-migrate/migrate/releases/latest/download/migrate.linux-amd64.deb
+          sudo dpkg -i migrate.linux-amd64.deb
+      - name: Start docker
+        run: docker compose up -d
+      - name: Run migrate
+        run: bundle exec rake db:migrate
+      - name: Run rake
+        run: bundle exec rake
+  Frontend-CI:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./frontend
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: npm ci
+      - run: npm run ci
+  E2E-CI:
+    needs: [Backend-CI, Frontend-CI]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./e2e
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+          working-directory: ./backend
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: docker compose up -d
+      - name: Install golang-migrate
+        run: |
+          curl -LO http://github.com/golang-migrate/migrate/releases/latest/download/migrate.linux-amd64.deb
+          sudo dpkg -i migrate.linux-amd64.deb
+      - run: cd ../backend && bundle exec rake db:migrate && bundle exec rackup -p 2300 &
+      - run: cd ../frontend && npm ci && npm run generate && npm run dev &
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
+        with:
+          working-directory: e2e
