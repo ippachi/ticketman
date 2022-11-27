@@ -11,7 +11,7 @@ const idMax = 32;
 
 const schema = yup
   .object({
-    id: yup.string().min(idMin).max(idMax).matches(new RegExp("^[a-z][a-z0-9_]+$")).required(),
+    id: yup.string().min(idMin).max(idMax).matches(new RegExp("^[a-z][a-z0-9\-]+$")).required(),
     name: yup.string().required(),
   })
   .required();
@@ -34,7 +34,7 @@ export default function CreateorganizationForm({
         <InputWithLabel label="ID" error={errors.id} {...register("id")} />
         <label className="label">
           <span className="label-text-alt">
-            * ID must be between {idMin} and {idMax} characters and consist of alphanumeric characters and underscores
+            * ID must be between {idMin} and {idMax} characters and consist of alphanumeric characters and hyphen
           </span>
         </label>
       </FormControl>

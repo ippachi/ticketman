@@ -10,10 +10,16 @@ module Ticketman
           def initialize(id:, name:)
             super(id)
             @name = name
+            verify
           end
 
           sig { returns(T::Hash[Symbol, T.untyped]) }
           def serialize = { **super, name: @name }
+
+          sig { void }
+          def verify
+            raise if @name.empty?
+          end
         end
       end
     end

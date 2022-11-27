@@ -7,17 +7,21 @@ module Ticketman
       module Organization
         class OrganizationTest < TestCase
           def test_create_organization
-            assert_equal Organization, create_organization.class
+            assert_equal Organization, OrganizationFactory.create(id: "hoge", name: "test").class
           end
 
-          def test_create_project
-            assert_equal Project, create_organization.create_project(name: "test project").class
-          end
-
-          private
-
-          def create_organization
-            OrganizationFactory.create(id: "hoge", name: "test")
+          data("with valid", %w[test test assert_nothing_raised])
+          data("with empty id", ["", "test", "assert_raise"])
+          data("with contain symbol id", ["id$", "test", "assert_raise"])
+          data("with 2 letters id", %w[id test assert_raise])
+          data("with 33 letters id", ["i" * 33, "test", "assert_raise"])
+          data("with start hyphen id", ["-id", "test", "assert_raise"])
+          data("with empty name", ["test", "", "assert_raise"])
+          def test_verification(data)
+            id, name, assertion = data
+            method(assertion).call do
+              OrganizationFactory.create(id:, name:)
+            end
           end
         end
       end
