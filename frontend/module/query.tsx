@@ -4,7 +4,13 @@ import {
 } from "@tanstack/react-query";
 import { ReactNode } from "react";
 
-export const createClient = (): QueryClient => new QueryClientImpl();
+export const createClient = (): QueryClient => new QueryClientImpl({
+  defaultOptions: {
+    queries: {
+      retry: 1
+    }
+  }
+});
 
 export const QueryClientProvider = ({
   client,

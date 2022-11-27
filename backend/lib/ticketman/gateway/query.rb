@@ -4,6 +4,8 @@
 module Ticketman
   module Gateway
     class Query
+      class NotFoundError < StandardError; end
+
       extend T::Sig
       extend T::Helpers
 
@@ -16,7 +18,10 @@ module Ticketman
 
       sig { params(id: String).returns(T.untyped) }
       def find(id)
-        @relation.find(id)
+        result = @relation.find(id)
+        raise NotFoundError unless result
+
+        result
       end
     end
   end

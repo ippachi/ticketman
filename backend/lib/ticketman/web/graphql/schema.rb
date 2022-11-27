@@ -15,6 +15,10 @@ module Ticketman
         rescue_from(StandardError) do
           raise ::GraphQL::ExecutionError, "Internal Server Error"
         end
+
+        rescue_from(Gateway::Query::NotFoundError) do
+          raise ::GraphQL::ExecutionError.new("Not Found", extensions: { code: "NOT_FOUND" })
+        end
       end
     end
   end

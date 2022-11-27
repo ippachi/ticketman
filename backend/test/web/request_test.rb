@@ -34,6 +34,11 @@ class RequestTest < RequestTestCase
     post_create_organization_mutation
   end
 
+  def test_not_found_error
+    post_organization_query
+    assert_equal "NOT_FOUND", parsed_body[:errors].first[:extensions][:code]
+  end
+
   def test_post_empty
     post "/graphql"
     assert { !parsed_body[:data].nil? }
