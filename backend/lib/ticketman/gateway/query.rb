@@ -4,7 +4,7 @@
 module Ticketman
   module Gateway
     class Query
-      class NotFoundError < StandardError; end
+      class NotFoundError < Web::Query::Errors::NotFoundError; end
 
       extend T::Sig
       extend T::Helpers
