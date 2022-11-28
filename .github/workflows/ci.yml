@@ -35,10 +35,16 @@ jobs:
         working-directory: ./frontend
     steps:
       - uses: actions/checkout@v3
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+          working-directory: ./backend
       - uses: actions/setup-node@v3
         with:
           node-version: 18
       - run: npm ci
+      - run: cd ../backend && bundle exec rake graphql:schema:idl
       - run: npm run ci
         # E2E-CI:
         #   needs: [Backend-CI, Frontend-CI]
@@ -62,7 +68,7 @@ jobs:
         #       run: |
         #         curl -LO http://github.com/golang-migrate/migrate/releases/latest/download/migrate.linux-amd64.deb
         #         sudo dpkg -i migrate.linux-amd64.deb
-        #     - run: cd ../backend && bundle exec rake db:migrate && bundle exec rackup -p 2300 &
+        #     - run: cd ../backend && bundle exec rake graphql:schema:idl && bundle exec rake db:migrate && bundle exec rackup -p 2300 &
         #     - run: cd ../frontend && npm ci && npm run generate && npm run dev &
         #     - name: Cypress run
         #       uses: cypress-io/github-action@v4

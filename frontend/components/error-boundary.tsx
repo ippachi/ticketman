@@ -1,19 +1,21 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
-/* eslint-disable @typescript-eslint/explicit-function-return-type */
-/* eslint-disable @typescript-eslint/no-unsafe-argument */
 
 import Error from "next/error";
-import React from "react"
+import React, { ReactNode } from "react";
+
+type State = { hasNotFoundError: boolean }
 
 class ErrorBoundary extends React.Component {
-  constructor(props) {
+  readonly props!: { children: ReactNode };
+  readonly state: State;
+
+  constructor(props: { children: JSX.Element }) {
     super(props);
     this.state = { hasNotFoundError: false };
   }
 
-  static getDerivedStateFromError(error) {
+  static getDerivedStateFromError(error: any): State {
     // Update state so the next render will show the fallback UI.
     if (error.response.errors[0].extensions.code === "NOT_FOUND") {
       return { hasNotFoundError: true };
@@ -21,15 +23,15 @@ class ErrorBoundary extends React.Component {
       return { hasNotFoundError: false };
     }
   }
-  componentDidCatch(_error, _errorInfo) {
+  componentDidCatch(): void {
     // You can also log the error to an error reporting service
     // logErrorToMyService(error, errorInfo);
     // console.log(error)
   }
-  render() {
+  render(): ReactNode {
     if (this.state.hasNotFoundError) {
       // You can render any custom fallback UI
-      return <Error statusCode={404}/>
+      return <Error statusCode={404} />;
     }
     return this.props.children;
   }
