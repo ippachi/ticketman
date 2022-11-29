@@ -6,5 +6,25 @@ services:
       MONGO_INITDB_ROOT_PASSWORD: password
     volumes:
       - ./backend/mongo/initdb:/docker-entrypoint-initdb.d
+      - mongo-db-store:/data/db
     ports:
       - 27017:27017
+  auth:
+    image: ghcr.io/logto-io/logto:prerelease
+    entrypoint: ["sh", "-c", "npm run cli db seed -- --swe && npm start"]
+    environment:
+      ENDPOINT: http://localhost:3001
+      DB_URL: postgres://postgres:postgres@auth-db/logto
+    ports:
+      - 3001:3001
+  auth-db:
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      POSTGRES_DB: logto
+    volumes:
+      - auth-db-store:/var/lib/postgresql/data
+volumes:
+  mongo-db-store:
+  auth-db-store:
