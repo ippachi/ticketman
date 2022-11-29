@@ -46,31 +46,31 @@ jobs:
       - run: npm ci
       - run: cd ../backend && bundle exec rake graphql:schema:idl
       - run: npm run ci
-        # E2E-CI:
-        #   needs: [Backend-CI, Frontend-CI]
-        #   runs-on: ubuntu-latest
-        #   defaults:
-        #     run:
-        #       working-directory: ./e2e
-        #   steps:
-        #     - uses: actions/checkout@v3
-        #     - name: Set up Ruby
-        #       uses: ruby/setup-ruby@v1
-        #       with:
-        #         ruby-version: '3.1'
-        #         bundler-cache: true
-        #         working-directory: ./backend
-        #     - uses: actions/setup-node@v3
-        #       with:
-        #         node-version: 18
-        #     - run: docker compose up -d
-        #     - name: Install golang-migrate
-        #       run: |
-        #         curl -LO http://github.com/golang-migrate/migrate/releases/latest/download/migrate.linux-amd64.deb
-        #         sudo dpkg -i migrate.linux-amd64.deb
-        #     - run: cd ../backend && bundle exec rake graphql:schema:idl && bundle exec rake db:migrate && bundle exec rackup -p 2300 &
-        #     - run: cd ../frontend && npm ci && npm run generate && npm run dev &
-        #     - name: Cypress run
-        #       uses: cypress-io/github-action@v4
-        #       with:
-        #         working-directory: e2e
+  E2E-CI:
+    needs: [Backend-CI, Frontend-CI]
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./e2e
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.1'
+          bundler-cache: true
+          working-directory: ./backend
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+      - run: docker compose up -d
+      - name: Install golang-migrate
+        run: |
+          curl -LO http://github.com/golang-migrate/migrate/releases/latest/download/migrate.linux-amd64.deb
+          sudo dpkg -i migrate.linux-amd64.deb
+      - run: cd ../backend && bundle exec rake graphql:schema:idl && bundle exec rake db:migrate && bundle exec rackup -p 2300 &
+      - run: cd ../frontend && npm ci && npm run generate && npm run build && npm run start &
+      - name: Cypress run
+        uses: cypress-io/github-action@v4
+        with:
+          working-directory: e2e
