@@ -34,6 +34,10 @@ module Ticketman
           Ticketman::Web::GraphQL::Schema.to_json
         end
       end
+
+      get "/health" do
+        "ok"
+      end
     end
   end
 end

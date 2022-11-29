@@ -15,7 +15,7 @@ end
 RuboCop::RakeTask.new
 RubyCritic::RakeTask.new do |task|
   task.paths   = FileList['./lib']
-  task.options = "--mode-ci --format json"
+  task.options = "--mode-ci --branch main --format json"
 end
 GraphQL::RakeTask.new(
   load_schema: lambda { |_task|
