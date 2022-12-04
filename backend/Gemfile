@@ -11,12 +11,15 @@ gem "test-unit"
 gem "ulid"
 gem "warning"
 gem "zeitwerk"
+gem "oauth2"
+gem "jwt"
 
 gem "sinatra"
 gem "sinatra-contrib"
 
 gem "rack-contrib"
 gem "rack-cors"
+gem "redis-rack"
 
 group :development do
   gem "rubycritic", require: false
