@@ -17,14 +17,14 @@ const Callback = ({ query }: { query: QueryType }): JSX.Element => {
     mutate(query, {
       onSuccess: () => {
         toast("Sign-in successful", "success")
-        router.push("/")
+        void router.push("/")
       },
       onError: () => {
         toast("Login failed", "error")
-        router.push("/")
+        void router.push("/")
       }
     })
-  }, [query, mutate])
+  }, [query, mutate, router])
   return <></>;
 };
 
