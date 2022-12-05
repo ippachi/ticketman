@@ -17,7 +17,7 @@ class ErrorBoundary extends React.Component {
 
   static getDerivedStateFromError(error: any): State {
     // Update state so the next render will show the fallback UI.
-    if (error.response.errors[0].extensions.code === "NOT_FOUND") {
+    if (error.response?.errors[0]?.extensions?.code === "NOT_FOUND") {
       return { hasNotFoundError: true };
     } else {
       return { hasNotFoundError: false };

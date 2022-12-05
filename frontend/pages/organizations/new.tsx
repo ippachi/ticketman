@@ -1,15 +1,15 @@
 import { useCreateOrganizationMutation } from "@/module/api";
 import { toast } from "@/module/toast";
 import CreateorganizationForm from "@/components/forms/create-organization-form";
-import PublicLayout from "@/components/layout/public-layout";
 import { useRouter } from "next/router";
+import Layout from "@/components/layout/layout";
 
 export default function New(): JSX.Element {
   const createOrganization = useCreateOrganizationMutation();
   const router = useRouter();
 
   return (
-    <PublicLayout>
+    <Layout>
       <h1 className="text-3xl mb-4">Create new organization</h1>
 
       <CreateorganizationForm
@@ -23,6 +23,6 @@ export default function New(): JSX.Element {
           });
         }}
       />
-    </PublicLayout>
+    </Layout>
   );
 }

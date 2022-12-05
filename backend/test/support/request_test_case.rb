@@ -51,6 +51,20 @@ class RequestTestCase < TestCase
     parsed_body.dig(:data, :createProject, :project)
   end
 
+  def post_generate_auth_url_mutation
+    post "/graphql", {
+      query: <<~MUTATION
+        mutation {
+          generateAuthUrl {
+            url
+          }
+        }
+      MUTATION
+    }
+
+    parsed_body.dig(:data, :generateAuthUrl, :url)
+  end
+
   def post_project_query
     post "/graphql", {
       query: <<~QUERY

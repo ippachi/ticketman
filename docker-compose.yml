@@ -25,6 +25,10 @@ services:
       POSTGRES_DB: logto
     volumes:
       - auth-db-store:/var/lib/postgresql/data
+  redis:
+    image: redis
+    ports:
+      - 6379:6379
 volumes:
   mongo-db-store:
   auth-db-store:

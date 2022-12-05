@@ -20,6 +20,10 @@ class RequestTest < RequestTestCase
     assert_equal parsed_body[:data][:project][:name], project[:name]
   end
 
+  def test_generate_auth_url_request
+    assert_equal String, post_generate_auth_url_mutation.class
+  end
+
   def test_application_error
     post_create_organization_mutation
     post_create_organization_mutation
