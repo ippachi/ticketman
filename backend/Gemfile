@@ -3,17 +3,16 @@
 source "https://rubygems.org"
 
 gem "dry-container"
+gem "dry-inflector"
 gem "graphql"
+gem "jwt"
 gem "mongo"
+gem "oauth2"
 gem "rake"
-gem "sorbet-runtime"
 gem "test-unit"
 gem "ulid"
 gem "warning"
 gem "zeitwerk"
-gem "oauth2"
-gem "jwt"
-gem "dry-inflector"
 
 gem "sinatra"
 gem "sinatra-contrib"
@@ -24,8 +23,6 @@ gem "redis-rack"
 
 group :development do
   gem "rubycritic", require: false
-  gem "sorbet"
-  gem "tapioca", require: false
 
   gem "rubocop", require: false
   gem "rubocop-graphql", require: false
