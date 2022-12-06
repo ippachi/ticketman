@@ -24,12 +24,6 @@ GraphQL::RakeTask.new(
   }
 )
 
-desc "run srb tc"
-task :srb do
-  `bundle exec srb tc`
-  exit unless $CHILD_STATUS.success?
-end
-
 desc "Load environment variables"
 task :environment do
   require_relative "lib/ticketman/bootstrap/environment"
@@ -63,4 +57,4 @@ namespace :db do
   end
 end
 
-task default: %i[srb test rubocop rubycritic]
+task default: %i[test rubocop rubycritic]

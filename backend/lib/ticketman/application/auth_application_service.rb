@@ -1,18 +1,13 @@
 # frozen_string_literal: true
-# typed: strict
 
 module Ticketman
   module Application
     class AuthApplicationService
-      extend T::Sig
-
-      sig { params(oauth2_client: OAuth2Client).void }
       def initialize(oauth2_client:)
         @oauth2_client = oauth2_client
       end
 
       # :nocov:
-      sig { params(session: T.untyped).returns(String) }
       def generate_auth_url(session)
         session[:code_verifier] = SecureRandom.alphanumeric(128)
         session[:nonce] = SecureRandom.uuid
@@ -21,7 +16,6 @@ module Ticketman
                                      code_verifier: session[:code_verifier])
       end
 
-      sig { params(code: String, state: String, session: T.untyped).returns(T.untyped) }
       def signin(code:, state:, session:)
         access = @oauth2_client.get_token(code, session[:code_verifier])
         verify(access.params.id_token, state, session)
@@ -29,7 +23,6 @@ module Ticketman
 
       private
 
-      sig { params(token: String, state: String, session: T.untyped).returns(T.untyped) }
       def verify(token, state, session)
         raise StandardError, "state is not valid" if state != session[:state]
 

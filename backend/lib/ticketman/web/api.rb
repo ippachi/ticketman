@@ -1,5 +1,4 @@
 # frozen_string_literal: true
-# typed: strict
 
 require "sinatra/base"
 require "sinatra/json"
@@ -13,14 +12,8 @@ ENV["RACK_ENV"] = ENV.fetch("APP_ENV", nil)
 module Ticketman
   module Web
     class API < Sinatra::Application
-      extend T::Sig
-
       use Rack::Cors do
-        T.bind(self, Rack::Cors)
-
         allow do
-          T.bind(self, Rack::Cors::Resources)
-
           origins ENV["CLIENT_URL"]
           resource "*", headers: :any, methods: [:post], credentials: true
         end

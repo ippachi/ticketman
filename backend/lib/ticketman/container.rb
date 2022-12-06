@@ -1,10 +1,13 @@
 # frozen_string_literal: true
-# typed: strict
 
 require "dry/container"
+require "dry/inflector"
+
 
 module Ticketman
   class Container
+    inflector = Dry::Inflector.new
+
     extend Dry::Container::Mixin
     namespace("gateway") do
       register("mongo_client", memoize: true) do
@@ -15,28 +18,20 @@ module Ticketman
         )
       end
 
-      register("organization_query") do
-        Gateway::OrganizationQuery.new(resolve("organizations"))
-      end
+      %i[organization project].each do |name|
+        classify_name = inflector.classify(name)
+        pluralize_name = inflector.pluralize(name)
+        register("#{name}_query") do
+          Gateway::Queries.const_get("#{classify_name}Query").new(resolve(pluralize_name))
+        end
 
-      register("organization_repo") do
-        Gateway::OrganizationRepository.new(resolve("organizations"))
-      end
+        register("#{name}_repo") do
+          Gateway::Repositories.const_get("#{classify_name}Repository").new(resolve(pluralize_name))
+        end
 
-      register("organizations") do
-        Gateway::Organizations.new(resolve("mongo_client"))
-      end
-
-      register("project_query") do
-        Gateway::ProjectQuery.new(resolve("projects"))
-      end
-
-      register("project_repo") do
-        Gateway::ProjectRepository.new(resolve("projects"))
-      end
-
-      register("projects") do
-        Gateway::Projects.new(resolve("mongo_client"))
+        register(pluralize_name) do
+          Gateway::Relations.const_get(inflector.pluralize(classify_name)).new(resolve("mongo_client"))
+        end
       end
 
       register("oauth2_client_strategy") do

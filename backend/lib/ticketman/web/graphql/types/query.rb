@@ -1,13 +1,10 @@
 # frozen_string_literal: true
-# typed: false
 
 module Ticketman
   module Web
     module GraphQL
       module Types
         class Query < ::GraphQL::Schema::Object
-          extend T::Sig
-
           field :organization, Types::Organization, null: false do
             argument :id, String
           end

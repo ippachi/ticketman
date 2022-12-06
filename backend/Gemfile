@@ -13,6 +13,7 @@ gem "warning"
 gem "zeitwerk"
 gem "oauth2"
 gem "jwt"
+gem "dry-inflector"
 
 gem "sinatra"
 gem "sinatra-contrib"
