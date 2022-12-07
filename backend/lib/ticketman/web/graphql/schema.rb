@@ -11,7 +11,7 @@ module Ticketman
           raise ::GraphQL::ExecutionError, err
         end
 
-        rescue_from(StandardError) do |err, obj, args|
+        rescue_from(StandardError) do |err, _obj, _args|
           p err
           raise ::GraphQL::ExecutionError, "Internal Server Error"
         end

@@ -19,7 +19,7 @@ module Ticketman
 
           def resolve(code:, state:)
             # :nocov:
-            hoge = @application_service.signin(code:, state:, session: context[:session])
+            @application_service.signin(code:, state:, session: context[:session])
             { user: nil }
             # :nocov:
           end

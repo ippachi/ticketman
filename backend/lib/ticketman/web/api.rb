@@ -14,13 +14,13 @@ module Ticketman
     class API < Sinatra::Application
       use Rack::Cors do
         allow do
-          origins ENV["CLIENT_URL"]
+          origins ENV.fetch("CLIENT_URL", nil)
           resource "*", headers: :any, methods: [:post], credentials: true
         end
       end
 
       use Rack::JSONBodyParser
-      use Rack::Session::Redis, redis_server: ENV["REDIS_SESSION_SERVER"]
+      use Rack::Session::Redis, redis_server: ENV.fetch("REDIS_SESSION_SERVER", nil)
 
       post "/graphql" do
         if params[:query]
