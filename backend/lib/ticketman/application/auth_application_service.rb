@@ -3,7 +3,7 @@
 module Ticketman
   module Application
     class AuthApplicationService
-      def initialize(oauth2_client:)
+      def initialize(oauth2_client: Gateway::OAuth2Client.new)
         @oauth2_client = oauth2_client
       end
 

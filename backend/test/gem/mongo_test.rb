@@ -6,7 +6,7 @@ require "mongo"
 
 class MongoTest < TestCase
   def test_save_and_find_data
-    client = Ticketman::Container.resolve("gateway.mongo_client")
+    client = Ticketman::Gateway::MongoClient
     organizations = client[:organizations]
     organizations.insert_one(id: "1", name: "name")
     assert_equal "name", organizations.find(id: "1").first[:name]

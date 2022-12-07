@@ -5,9 +5,6 @@ module Ticketman
     module Queries
       class Query
         class NotFoundError < Web::Query::Errors::NotFoundError; end
-        def initialize(relation)
-          @relation = relation
-        end
 
         def find(id)
           result = @relation.find(id)

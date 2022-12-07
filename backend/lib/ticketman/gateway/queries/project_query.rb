@@ -4,9 +4,9 @@ module Ticketman
   module Gateway
     module Queries
       class ProjectQuery < Query
-        def initialize(projects)
-          super
-          @projects = projects
+        def initialize(relation: Relations::Projects.new)
+          super()
+          @relation = relation
         end
       end
     end

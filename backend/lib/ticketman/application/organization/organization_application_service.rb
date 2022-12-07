@@ -6,7 +6,8 @@ module Ticketman
       class OrganizationApplicationService
         class CreateOrganizationDuplicateIDError < Error; end
 
-        def initialize(organization_repo:, project_repo:)
+        def initialize(organization_repo: Gateway::Repositories::OrganizationRepository.new,
+                       project_repo: Gateway::Repositories::ProjectRepository.new)
           @organization_repo = organization_repo
           @project_repo = project_repo
         end

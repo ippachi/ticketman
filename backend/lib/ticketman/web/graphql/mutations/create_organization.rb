@@ -10,10 +10,14 @@ module Ticketman
 
           field :organization, Types::Organization, null: false
 
+          def initialize(*args, application_service: Application::Organization::OrganizationApplicationService.new,
+                         **kwargs, &block)
+            super(*args, **kwargs, &block)
+            @application_service = application_service
+          end
+
           def resolve(id:, name:)
-            organization = Container["application.organization.organization_application_service"].create_organization(
-              id, name
-            )
+            organization = @application_service.create_organization(id, name)
             { organization: organization.serialize }
           end
         end

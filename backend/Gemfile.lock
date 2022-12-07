@@ -11,14 +11,10 @@ GEM
     bson (4.15.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
-    concurrent-ruby (1.1.10)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     docile (1.4.0)
     dotenv (2.8.1)
-    dry-container (0.11.0)
-      concurrent-ruby (~> 1.0)
-    dry-inflector (1.0.0)
     equalizer (0.0.11)
     erubi (1.11.0)
     faraday (2.7.1)
@@ -48,6 +44,7 @@ GEM
     multi_xml (0.6.0)
     mustermann (3.0.0)
       ruby2_keywords (~> 0.0.1)
+    nio4r (2.5.8)
     oauth2 (2.0.9)
       faraday (>= 0.17.3, < 3.0)
       jwt (>= 1.0, < 3.0)
@@ -61,6 +58,8 @@ GEM
     path_expander (1.1.1)
     power_assert (2.0.1)
     public_suffix (5.0.0)
+    puma (6.0.0)
+      nio4r (~> 2.0)
     rack (2.2.4)
     rack-contrib (2.3.0)
       rack (~> 2.0)
@@ -163,12 +162,11 @@ PLATFORMS
 
 DEPENDENCIES
   dotenv
-  dry-container
-  dry-inflector
   graphql
   jwt
   mongo
   oauth2
+  puma
   rack-contrib
   rack-cors
   rack-test

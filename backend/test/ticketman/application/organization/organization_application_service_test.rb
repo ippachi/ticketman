@@ -5,13 +5,15 @@ module Ticketman
   module Application
     module Organization
       class OrganizationApplicationServiceTest < TestCase
-        def teardown
-          Ticketman::Container["gateway.mongo_client"].collections.each(&:delete_many)
+        def setup
+          @organization_repo = Gateway::Repositories::OrganizationRepository.new
+          @project_repo = Gateway::Repositories::ProjectRepository.new
+          @application_service = OrganizationApplicationService.new
         end
 
         def test_create_organization
           create_organization
-          assert Container["gateway.organization_repo"].find("hoge")
+          assert @organization_repo.find("hoge")
         end
 
         def test_create_organization_with_duplicate_id
@@ -23,17 +25,17 @@ module Ticketman
 
         def test_create_project
           organization = create_organization
-          project = Container["application.organization.organization_application_service"].create_project(
+          project = @application_service.create_project(
             organization_id: organization.id.to_s,
             name: "hoge project"
           )
-          assert Container["gateway.project_repo"].find(project.id)
+          assert @project_repo.find(project.id)
         end
 
         private
 
         def create_organization
-          Container["application.organization.organization_application_service"].create_organization("hoge", "name")
+          @application_service.create_organization("hoge", "name")
         end
       end
     end

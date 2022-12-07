@@ -4,7 +4,7 @@ module Ticketman
   module Gateway
     module Relations
       class Relation
-        def initialize(client)
+        def initialize(client: MongoClient)
           @client = client
         end
 

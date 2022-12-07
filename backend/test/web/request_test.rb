@@ -31,10 +31,11 @@ class RequestTest < RequestTestCase
   end
 
   def test_standard_error
-    organization_application_service_stub = Object.new
-    stub(organization_application_service_stub).create_organization { raise StandardError }
-    Ticketman::Container.stub("application.organization.organization_application_service",
-                              organization_application_service_stub)
+    stub(Ticketman::Application::Organization::OrganizationApplicationService).new do
+      organization_application_service_stub = Object.new
+      stub(organization_application_service_stub).create_organization { raise StandardError }
+      organization_application_service_stub
+    end
     post_create_organization_mutation
   end
 

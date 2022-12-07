@@ -10,8 +10,14 @@ module Ticketman
 
           field :project, Types::Project, null: false
 
+          def initialize(*args, application_service: Application::Organization::OrganizationApplicationService.new,
+                         **kwargs, &block)
+            super(*args, **kwargs, &block)
+            @application_service = application_service
+          end
+
           def resolve(organization_id:, name:)
-            project = Container["application.organization.organization_application_service"].create_project(
+            project = @application_service.create_project(
               organization_id:, name:
             )
             { project: project.serialize }

@@ -14,7 +14,6 @@ ENV["APP_ENV"] = "test"
 
 require "test/unit"
 require "test/unit/rr"
-require "dry/container/stub"
 require "ticketman"
 
 require_relative "./support/test_case"

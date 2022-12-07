@@ -12,9 +12,14 @@ module Ticketman
 
           field :user, Types::Project, null: true
 
+          def initialize(*args, application_service: Application::AuthApplicationService.new, **kwargs, &block)
+            super(*args, **kwargs, &block)
+            @application_service = application_service
+          end
+
           def resolve(code:, state:)
             # :nocov:
-            hoge = Container["application.auth_application_service"].signin(code:, state:, session: context[:session])
+            hoge = @application_service.signin(code:, state:, session: context[:session])
             { user: nil }
             # :nocov:
           end

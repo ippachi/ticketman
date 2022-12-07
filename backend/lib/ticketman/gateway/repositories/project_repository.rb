@@ -4,9 +4,9 @@ module Ticketman
   module Gateway
     module Repositories
       class ProjectRepository < Repository
-        def initialize(projects)
-          super
-          @relation = projects
+        def initialize(relation: Relations::Projects.new)
+          super()
+          @relation = relation
         end
 
         private

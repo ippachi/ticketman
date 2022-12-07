@@ -7,10 +7,6 @@ module Ticketman
 
         class DuplicateKeyError < Application::Errors::DuplicateKeyError; end
 
-        def initialize(relation)
-          @relation = relation
-        end
-
         def save(entity)
           @relation.insert_one(entity.serialize)
         rescue Mongo::Error::OperationFailure => e

@@ -6,7 +6,7 @@ module Ticketman
     class AuthApplicationServiceTest < TestCase
       def test_generate_auth_url
         session = {}
-        url = Container["application.auth_application_service"].generate_auth_url(session)
+        url = AuthApplicationService.new.generate_auth_url(session)
         assert_equal String, url.class
         assert session[:state]
         assert session[:nonce]
