@@ -6,12 +6,13 @@ module Ticketman
       module Organization
         class Project < Entity
           def initialize(id:, name:)
-            super(id)
+            super()
+            @id = id
             @name = name
             verify
           end
 
-          def serialize = { **super, name: @name }
+          def serialize = { id: @id, name: @name }
 
           def verify
             raise if @name.empty?

@@ -6,7 +6,8 @@ module Ticketman
       module Organization
         class Organization < Entity
           def initialize(id:, name:)
-            super(id)
+            super()
+            @id = id
             @name = name
             verify
           end
@@ -15,7 +16,7 @@ module Ticketman
             ProjectFactory.create(name:)
           end
 
-          def serialize = { **super, name: @name }
+          def serialize = { id: @id, name: @name }
 
           def verify
             raise if @name.empty? || !@id.to_s.match?(/^[a-z][a-z0-9-]{2,31}$/)
