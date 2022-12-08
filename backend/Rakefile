@@ -14,7 +14,7 @@ end
 
 RuboCop::RakeTask.new
 RubyCritic::RakeTask.new do |task|
-  task.paths   = FileList['./lib']
+  task.paths   = FileList['./lib/ticketman/domain/']
   task.options = "--mode-ci --branch main --format json"
 end
 GraphQL::RakeTask.new(

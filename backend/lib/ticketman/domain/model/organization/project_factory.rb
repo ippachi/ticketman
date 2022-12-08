@@ -5,8 +5,8 @@ module Ticketman
     module Model
       module Organization
         class ProjectFactory
-          def self.create(name:, id: nil)
-            Project.new(id: id || ULID.generate, name:)
+          def self.create(name:, id: ULID.generate)
+            Project.new(id:, name:)
           end
         end
       end
