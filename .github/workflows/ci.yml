@@ -68,7 +68,7 @@ jobs:
           curl -LO http://github.com/golang-migrate/migrate/releases/latest/download/migrate.linux-amd64.deb
           sudo dpkg -i migrate.linux-amd64.deb
       - run: cd ../backend && bundle exec rake graphql:schema:idl && bundle exec rake db:migrate
-      - run: cd ../frontend && npm ci && npm run generate && npm run build
+      - run: cd ../frontend && npm ci && npm run codegen && npm run build
       - run: cd ../frontend && npm run start &
       - run: cd ../backend && bundle exec rackup -p 2300 &
       - name: Cypress run
