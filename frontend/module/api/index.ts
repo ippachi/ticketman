@@ -96,7 +96,8 @@ const useBaseMutation = <T, V, E>(
           // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
           onError: (error: any) => hooks.onError(error.response?.errors as Errors),
         }),
-      [mutate, onSuccessData]
+      // eslint-disable-next-line react-hooks/exhaustive-deps
+      [mutate]
     ),
   };
 };
