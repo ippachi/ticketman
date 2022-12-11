@@ -19,7 +19,7 @@ export default function New(): JSX.Element {
               toast("Organization created.", "success");
               void router.push(`/orgs/${organization.id}`);
             },
-            onError: (error) => toast(error.errors[0].message, "error"),
+            onError: (errors) => toast(errors[0].message, "error"),
           });
         }}
       />

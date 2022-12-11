@@ -1,7 +1,7 @@
 import { useForm } from "react-hook-form";
 import * as yup from "yup";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { CreateOrganizationMutationVariables } from "../../src/generated/graphql";
+import { CreateOrganizationMutationVariables } from "../../src/gql/graphql";
 import FormControl from "../form/form-control";
 import Button from "../button";
 import InputWithLabel from "../form/input-with-label";

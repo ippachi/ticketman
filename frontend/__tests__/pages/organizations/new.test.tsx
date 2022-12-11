@@ -30,7 +30,7 @@ describe("New", () => {
   });
 
   test("Create organization with error", async () => {
-    mutateMock.mockImplementationOnce((_, hooks) => hooks.onError({ errors: [{ message: "Duplicate ID." }] }));
+    mutateMock.mockImplementationOnce((_, hooks) => hooks.onError([{ message: "Duplicate ID." }]));
     render(<New />);
     await userEvent.type(screen.getByLabelText("ID"), "test-organization");
     await userEvent.type(screen.getByLabelText("Name"), "test organization");

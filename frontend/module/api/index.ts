@@ -1,20 +1,17 @@
+import { useMutation, useQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
-import { gql } from "graphql-request";
 import {
   CreateOrganizationMutationVariables,
-  useCreateOrganizationMutation as useGeneratedCreateOrganizationMutation,
-  useSigninMutation as useGeneratedSigninMutation,
-  useGenerateAuthUrlMutation as useGeneratedGenerateAuthUrlMutation,
-  useFetchOrganizationQuery,
+  GenerateAuthUrlMutationVariables,
   Organization,
   SigninMutationVariables,
-  Project,
-  GenerateAuthUrlMutation,
-} from "../../src/generated/graphql";
-import { ErrorResponse, UseMutateResult } from "./type";
-import { client, handleError } from "./utils";
+} from "src/gql/graphql";
+import { graphql } from "../../src/gql";
+import { GraphQLClient } from "graphql-request";
 
-gql`
+export const client = new GraphQLClient("http://localhost:2300/graphql", { credentials: "include" });
+
+const createOrganizationDocument = graphql(`
   mutation createOrganization($id: ID!, $name: String!) {
     createOrganization(id: $id, name: $name) {
       organization {
@@ -23,18 +20,18 @@ gql`
       }
     }
   }
-`;
+`);
 
-gql`
+const fetchOrganizationDocument = graphql(`
   query fetchOrganization($id: String!) {
     organization(id: $id) {
       id
       name
     }
   }
-`;
+`);
 
-gql`
+const signinDocument = graphql(`
   mutation signin($code: String!, $state: String!) {
     signin(code: $code, state: $state) {
       user {
@@ -42,80 +39,92 @@ gql`
       }
     }
   }
-`;
+`);
 
-gql`
+const generateAuthUrlDocument = graphql(`
   mutation generateAuthUrl {
     generateAuthUrl {
       url
     }
   }
-`;
+`);
+
+type Errors = { message: string; extensions: { code: string } }[];
 
 export const useOrganization = (
   id: string,
   options: { useErrorBoundary: boolean } = { useErrorBoundary: false }
-): { data: Organization | undefined; isLoading: boolean; errorCode: string | null } => {
-  const { data, isLoading, error } = useFetchOrganizationQuery(client, { id }, options);
-  const errorCode = (error as { response: ErrorResponse })?.response.errors[0].extensions.code;
-
-  return { data: data?.organization, isLoading, errorCode };
+): { data: Organization | undefined } => {
+  const { data } = useQuery({
+    queryKey: ["organizations", id],
+    queryFn: () => client.request(fetchOrganizationDocument, { id }),
+    ...options,
+  });
+  return { data: data?.organization };
 };
 
-export const useCreateOrganizationMutation = (): UseMutateResult<Organization, CreateOrganizationMutationVariables> => {
-  const { mutate } = useGeneratedCreateOrganizationMutation<Error>(client);
+export const useCreateOrganizationMutation = (): {
+  mutate: (
+    variables: CreateOrganizationMutationVariables,
+    hooks: { onSuccess: (data: Organization) => void; onError: (errors: Errors) => void }
+  ) => void;
+} => {
+  const { mutate } = useMutation({
+    mutationFn: (variables: CreateOrganizationMutationVariables) =>
+      client.request(createOrganizationDocument, variables),
+  });
   return {
     mutate: useCallback(
       (variables, hooks) =>
         mutate(variables, {
-          onSuccess: (data) => {
-            hooks.onSuccess(data.createOrganization?.organization as Organization);
-          },
-          onError: (error) => {
-            handleError(hooks, error);
-          },
+          onSuccess: (data) => hooks.onSuccess(data.createOrganization?.organization as Organization),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+          onError: (error: any) => hooks.onError(error.response?.errors as Errors),
         }),
       [mutate]
     ),
   };
 };
 
-export const useSigninMutation = (): UseMutateResult<Project, SigninMutationVariables> => {
-  const { mutate } = useGeneratedSigninMutation<Error>(client);
+export const useSigninMutation = (): {
+  mutate: (
+    variables: SigninMutationVariables,
+    hooks: { onSuccess: (data: null) => void; onError: (errors: Errors) => void }
+  ) => void;
+} => {
+  const { mutate } = useMutation({
+    mutationFn: (variables: SigninMutationVariables) => client.request(signinDocument, variables),
+  });
   return {
     mutate: useCallback(
-      (variables, hooks) => {
+      (variables, hooks) =>
         mutate(variables, {
-          onSuccess: (data) => {
-            hooks.onSuccess(data.signin?.user as Project);
-          },
-          onError: (error) => {
-            handleError(hooks, error);
-          },
-        });
-      },
+          onSuccess: (data) => hooks.onSuccess(data.signin?.user as null),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+          onError: (error: any) => hooks.onError(error.response?.errors as Errors),
+        }),
       [mutate]
     ),
   };
 };
 
-export const useGenerateAuthUrlMutation = (): UseMutateResult<string, GenerateAuthUrlMutation> => {
-  const { mutate } = useGeneratedGenerateAuthUrlMutation<Error>(client);
+export const useGenerateAuthUrlMutation = (): {
+  mutate: (
+    variables: Record<string, never>,
+    hooks: { onSuccess: (data: string) => void; onError: (errors: Errors) => void }
+  ) => void;
+} => {
+  const { mutate } = useMutation({
+    mutationFn: (variables: GenerateAuthUrlMutationVariables) => client.request(generateAuthUrlDocument, variables),
+  });
   return {
     mutate: useCallback(
-      (_, hooks) => {
-        mutate(
-          {},
-          {
-            onSuccess: (data) => {
-              hooks.onSuccess(data.generateAuthUrl?.url as string);
-            },
-            onError: (error) => {
-              handleError(hooks, error);
-            },
-          }
-        );
-      },
+      (variables, hooks) =>
+        mutate(variables, {
+          onSuccess: (data) => hooks.onSuccess(data.generateAuthUrl?.url as string),
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+          onError: (error: any) => hooks.onError(error.response?.errors as Errors),
+        }),
       [mutate]
     ),
   };
