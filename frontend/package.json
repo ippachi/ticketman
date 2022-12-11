@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "test": "jest --watchAll",
-    "ci": "graphql-codegen && tsc && jest",
+    "ci": "graphql-codegen --config codegen.ts && tsc && jest",
     "codegen": "graphql-codegen --config codegen.ts"
   },
   "dependencies": {
