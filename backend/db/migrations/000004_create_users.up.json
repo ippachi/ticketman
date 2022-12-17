@@ -1,0 +1,31 @@
+[
+  {
+    "create": "users",
+    "validator": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "properties": {
+          "id": {
+            "bsonType": "string"
+          },
+          "name": {
+            "bsonType": "string"
+          }
+        },
+        "required": ["id", "name"]
+      }
+    }
+  },
+  {
+    "createIndexes": "users",
+    "indexes": [
+      {
+        "key": {
+          "id": 1
+        },
+        "name": "usersIdIndex",
+        "unique": true
+      }
+    ]
+  }
+]

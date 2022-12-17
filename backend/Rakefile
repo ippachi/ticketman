@@ -50,9 +50,24 @@ namespace :db do
       `#{migrate_base.call} force #{args.version}`
     end
 
-    desc "Run migration rollback"
-    task rollback: :environment do
-      `#{migrate_base.call} down`
+    desc "Run migration down"
+    task down: :environment do
+      `#{migrate_base.call} down -all`
+    end
+
+    desc "Run migration version"
+    task version: :environment do
+      `#{migrate_base.call} version`
+    end
+
+    desc "Run migration drop"
+    task drop: :environment do
+      `#{migrate_base.call} drop`
+    end
+
+    desc "Run migration goto"
+    task :goto, ["version"] => :environment do |_, args|
+      `#{migrate_base.call} goto #{args.version}`
     end
   end
 end

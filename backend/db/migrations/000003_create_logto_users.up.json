@@ -1,0 +1,38 @@
+[
+  {
+    "create": "logtoUsers",
+    "validator": {
+      "$jsonSchema": {
+        "bsonType": "object",
+        "properties": {
+          "id": {
+            "bsonType": "string"
+          },
+          "userId": {
+            "bsonType": "string"
+          }
+        },
+        "required": ["id", "userId"]
+      }
+    }
+  },
+  {
+    "createIndexes": "logtoUsers",
+    "indexes": [
+      {
+        "key": {
+          "id": 1
+        },
+        "name": "logtoUsersIdIndex",
+        "unique": true
+      },
+      {
+        "key": {
+          "userId": 1
+        },
+        "name": "logtoUsersUserIdIndex",
+        "unique": true
+      }
+    ]
+  }
+]
