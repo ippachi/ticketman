@@ -21,18 +21,16 @@ module Ticketman
       end
 
       def test_signin_with_no_logto_user
-        sub = "sub"
         session = { state: "test" }
-        stub(@auth_application_service).verify { sub }
+        stub(@auth_application_service).verify { { "sub" => "sub", "username" => "username" } }
         @auth_application_service.signin(code: "test", state: "test", session:)
-        assert @logto_user_repo.find(sub)
+        assert @logto_user_repo.find("sub")
         assert @user_repo.find(session[:user_id])
       end
 
       def test_signin_with_logto_user
-        sub = "sub"
         session = { state: "test" }
-        stub(@auth_application_service).verify { sub }
+        stub(@auth_application_service).verify { { "sub" => "sub", "username" => "username" } }
         @auth_application_service.signin(code: "test", state: "test", session:)
         @auth_application_service.signin(code: "test", state: "test", session:)
       end
