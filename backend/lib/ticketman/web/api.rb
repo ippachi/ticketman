@@ -23,11 +23,12 @@ module Ticketman
       use Rack::Session::Redis, redis_server: ENV.fetch("REDIS_SESSION_SERVER", nil)
 
       post "/graphql" do
+        current_user = Application::AuthApplicationService.new.current_user(session[:user_id])
         if params[:query]
           result = Ticketman::Web::GraphQL::Schema.execute(
             params[:query],
             variables: params[:variables],
-            context: { session: }
+            context: { session:, current_user: }
           )
           json(result)
         else

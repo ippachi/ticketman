@@ -10,6 +10,7 @@ module Ticketman
           @name = name
         end
 
+        def create_organization(id:, name:) = Organization::Organization.new(id:, name:, owner_id: @id)
         def to_h = { id: @id, name: @name }
       end
     end

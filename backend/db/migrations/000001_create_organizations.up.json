@@ -10,9 +10,12 @@
           },
           "name": {
             "bsonType": "string"
+          },
+          "owner_id": {
+            "bsonType": "string"
           }
         },
-        "required": ["id", "name"]
+        "required": ["id", "name", "owner_id"]
       }
     }
   },

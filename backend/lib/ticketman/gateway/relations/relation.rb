@@ -10,7 +10,12 @@ module Ticketman
 
         def find(id)
           result = @client[name].find(id:).first
-          result ? result.to_h.transform_keys(&:to_sym).except(:_id) : nil
+          format_result(result)
+        end
+
+        def where(condition)
+          result = @client[name].find(**condition).first
+          format_result(result)
         end
 
         def insert(attributes)
@@ -19,6 +24,12 @@ module Ticketman
 
         def upsert(attributes)
           @client[name].update_one({ id: attributes[:id] }, { "$set": attributes }, { upsert: true })
+        end
+
+        private
+
+        def format_result(result)
+          result ? result.to_h.transform_keys(&:to_sym).except(:_id) : nil
         end
       end
     end

@@ -12,8 +12,8 @@ module Ticketman
           @project_repo = project_repo
         end
 
-        def create_organization(id, name)
-          organization = Domain::Model::Organization::Organization.new(id:, name:)
+        def create_organization(current_user, id:, name:)
+          organization = current_user.create_organization(id:, name:)
           begin
             @organization_repo.save(organization, upsert: false)
           rescue Errors::DuplicateKeyError
@@ -22,8 +22,8 @@ module Ticketman
           organization
         end
 
-        def create_project(organization_id:, name:)
-          organization = @organization_repo.find(organization_id)
+        def create_project(current_user, organization_id:, name:)
+          organization = @organization_repo.find_owner_organization(owner_id: current_user.id, organization_id:)
           project = organization.create_project(name:)
           @project_repo.save(project)
           project

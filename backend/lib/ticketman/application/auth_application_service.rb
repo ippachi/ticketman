@@ -34,9 +34,10 @@ module Ticketman
                end
 
         session[:user_id] = user.id
+        user
       end
 
-      def current_user(user_id) = @user_repo.find(user_id)
+      def current_user(user_id) = @user_repo.find_or_nil(user_id)
 
       private
 

@@ -17,7 +17,7 @@ module Ticketman
           end
 
           def resolve(id:, name:)
-            organization = @application_service.create_organization(id, name)
+            organization = @application_service.create_organization(context[:current_user], id:, name:)
             { organization: organization.to_h }
           end
         end

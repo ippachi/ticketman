@@ -9,6 +9,10 @@ module Ticketman
           @relation = relation
         end
 
+        def find_owner_organization(owner_id:, organization_id:)
+          build(@relation.where(id: organization_id, owner_id:))
+        end
+
         def build(attributes) = Domain::Model::Organization::Organization.new(**attributes)
       end
     end

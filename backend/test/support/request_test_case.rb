@@ -5,6 +5,25 @@ require "rack/test"
 class RequestTestCase < TestCase
   include Rack::Test::Methods
 
+  def setup
+    stub.proxy(Ticketman::Gateway::OAuth2Client).new do |obj|
+      stub(obj).get_token { "token" }
+    end
+
+    stub.proxy(Ticketman::Application::AuthApplicationService).new do |obj|
+      stub(obj).verify { { "sub" => "sub", "username" => "username" } }
+    end
+    post "/graphql", {
+      query: <<~MUTATION
+        mutation {
+          signin(code: "code", state: "state") {
+            user { id, name }
+          }
+        }
+      MUTATION
+    }
+  end
+
   def app
     Ticketman::Web::API
   end
