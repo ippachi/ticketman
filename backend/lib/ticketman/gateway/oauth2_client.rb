@@ -20,7 +20,8 @@ module Ticketman
 
       def get_token(code, code_verifier)
         # :nocov:
-        @oauth2.auth_code.get_token(code, redirect_uri: "#{ENV.fetch('CLIENT_URL', nil)}/auth/callback", code_verifier:)
+        @oauth2.auth_code.get_token(code, redirect_uri: "#{ENV.fetch('CLIENT_URL', nil)}/auth/callback",
+                                          code_verifier:).params.id_token
         # :nocov:
       end
     end

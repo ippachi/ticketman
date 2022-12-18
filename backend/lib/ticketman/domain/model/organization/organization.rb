@@ -16,7 +16,7 @@ module Ticketman
             ProjectFactory.create(name:)
           end
 
-          def serialize = { id: @id, name: @name }
+          def to_h = { id: @id, name: @name }
 
           def verify
             raise if @name.empty? || !@id.to_s.match?(/^[a-z][a-z0-9-]{2,31}$/)

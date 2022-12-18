@@ -18,7 +18,7 @@ module Ticketman
 
           def resolve(id:, name:)
             organization = @application_service.create_organization(id, name)
-            { organization: organization.serialize }
+            { organization: organization.to_h }
           end
         end
       end

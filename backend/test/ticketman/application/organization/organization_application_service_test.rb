@@ -6,8 +6,7 @@ module Ticketman
     module Organization
       class OrganizationApplicationServiceTest < TestCase
         def setup
-          @organization_repo = Gateway::Repositories::OrganizationRepository.new
-          @project_repo = Gateway::Repositories::ProjectRepository.new
+          super
           @application_service = OrganizationApplicationService.new
         end
 

@@ -11,10 +11,14 @@ GEM
     bson (4.15.0)
     coercible (1.0.0)
       descendants_tracker (~> 0.0.1)
+    debug (1.7.0)
+      irb (>= 1.5.0)
+      reline (>= 0.3.1)
     descendants_tracker (0.0.4)
       thread_safe (~> 0.3, >= 0.3.1)
     docile (1.4.0)
     dotenv (2.8.1)
+    dry-inflector (1.0.0)
     equalizer (0.0.11)
     erubi (1.11.0)
     faraday (2.7.1)
@@ -33,6 +37,9 @@ GEM
     graphql (2.0.15)
     hashie (5.0.0)
     ice_nine (0.11.2)
+    io-console (0.6.0)
+    irb (1.6.1)
+      reline (>= 0.3.0)
     json (2.6.3)
     jwt (2.5.0)
     kwalify (0.7.2)
@@ -82,6 +89,8 @@ GEM
       parser (~> 3.1.0)
       rainbow (>= 2.0, < 4.0)
     regexp_parser (2.6.1)
+    reline (0.3.2)
+      io-console (~> 0.5)
     rexml (3.2.5)
     rr (3.1.0)
     rubocop (1.40.0)
@@ -161,7 +170,9 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  debug
   dotenv
+  dry-inflector
   graphql
   jwt
   mongo

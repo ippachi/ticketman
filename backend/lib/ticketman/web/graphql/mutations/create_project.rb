@@ -20,7 +20,7 @@ module Ticketman
             project = @application_service.create_project(
               organization_id:, name:
             )
-            { project: project.serialize }
+            { project: project.to_h }
           end
         end
       end

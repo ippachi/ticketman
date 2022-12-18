@@ -12,7 +12,7 @@ module Ticketman
             verify
           end
 
-          def serialize = { id: @id, name: @name }
+          def to_h = { id: @id, name: @name }
 
           def verify
             raise if @name.empty?

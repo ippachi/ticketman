@@ -8,11 +8,11 @@
           "id": {
             "bsonType": "string"
           },
-          "userId": {
+          "user_id": {
             "bsonType": "string"
           }
         },
-        "required": ["id", "userId"]
+        "required": ["id", "user_id"]
       }
     }
   },
@@ -28,7 +28,7 @@
       },
       {
         "key": {
-          "userId": 1
+          "user_id": 1
         },
         "name": "logtoUsersUserIdIndex",
         "unique": true
