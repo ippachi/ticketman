@@ -17,7 +17,9 @@ module Ticketman
         rescue Mongo::Error::OperationFailure => e
           raise DuplicateKeyError if e.code == 11_000
 
+          # :nocov:
           raise e
+          # :nocov:
         end
 
         def find(id)

@@ -2,6 +2,7 @@
 
 require "jwt"
 
+# :nocov:
 module Ticketman
   module Web
     module GraphQL
@@ -18,13 +19,12 @@ module Ticketman
           end
 
           def resolve(code:, state:)
-            # :nocov:
             @application_service.signin(code:, state:, session: context[:session])
             { user: nil }
-            # :nocov:
           end
         end
       end
     end
   end
 end
+# :nocov:
