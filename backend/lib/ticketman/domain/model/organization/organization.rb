@@ -13,7 +13,7 @@ module Ticketman
           end
 
           def create_project(name:)
-            ProjectFactory.create(name:)
+            Project.new(name:)
           end
 
           def to_h = { id: @id, name: @name }

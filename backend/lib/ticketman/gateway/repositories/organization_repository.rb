@@ -9,7 +9,7 @@ module Ticketman
           @relation = relation
         end
 
-        def build(attributes) = Domain::Model::Organization::OrganizationFactory.create(**attributes)
+        def build(attributes) = Domain::Model::Organization::Organization.new(**attributes)
       end
     end
   end

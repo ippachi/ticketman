@@ -11,7 +11,7 @@ module Ticketman
 
         private
 
-        def build(attributes) = Domain::Model::Organization::ProjectFactory.create(**attributes)
+        def build(attributes) = Domain::Model::Organization::Project.new(**attributes)
       end
     end
   end

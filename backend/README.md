@@ -30,13 +30,11 @@ flowchart TD
 
     subgraph Domain
         Entity
-        Factory
         Repository
     end
 
     RepositoryImpl-->Repository
     QueryImpl-->Query
-    ApplicationService-->Factory
     ApplicationService-->Entity
     ApplicationService-->Repository
     Graphql-->ApplicationService

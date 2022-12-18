@@ -5,7 +5,7 @@ module Ticketman
     module Model
       module Organization
         class Project < Entity
-          def initialize(id:, name:)
+          def initialize(name:, id: ULID.generate)
             super()
             @id = id
             @name = name
