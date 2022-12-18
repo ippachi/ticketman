@@ -15,7 +15,7 @@ module Ticketman
         def create_organization(id, name)
           organization = Domain::Model::Organization::OrganizationFactory.create(id:, name:)
           begin
-            @organization_repo.save(organization)
+            @organization_repo.save(organization, upsert: false)
           rescue Errors::DuplicateKeyError
             raise CreateOrganizationDuplicateIDError, "Duplicate ID."
           end

@@ -4,7 +4,7 @@ module Ticketman
   module Gateway
     module Relations
       class Relation
-        def initialize(client: MongoClient)
+        def initialize(client: MongoClient.new)
           @client = client
         end
 
@@ -13,8 +13,12 @@ module Ticketman
           result ? result.to_h.transform_keys(&:to_sym).except(:_id) : nil
         end
 
-        def insert_one(attributes)
+        def insert(attributes)
           @client[name].insert_one(attributes)
+        end
+
+        def upsert(attributes)
+          @client[name].update_one({ id: attributes[:id] }, { "$set": attributes }, { upsert: true })
         end
       end
     end

@@ -8,18 +8,33 @@ module Ticketman
 
         class DuplicateKeyError < Application::Errors::DuplicateKeyError; end
 
-        def save(entity)
-          @relation.insert_one(entity.serialize)
+        def save(entity, upsert: true)
+          if upsert
+            @relation.upsert(entity.to_h)
+          else
+            @relation.insert(entity.to_h)
+          end
         rescue Mongo::Error::OperationFailure => e
           raise DuplicateKeyError if e.code == 11_000
+
+          raise e
         end
 
         def find(id)
-          result = @relation.find(id.to_s)
+          result = find_or_nil(id)
           raise NotFoundError unless result
 
-          build(result)
+          result
         end
+
+        def find_or_nil(id)
+          result = @relation.find(id.to_s)
+          result ? build(result) : nil
+        end
+
+        private
+
+        def build(attributes) = attributes
       end
     end
   end
