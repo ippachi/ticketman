@@ -4,15 +4,3 @@ detectors:
   UncommunicativeVariableName:
     accept:
       - e
-  UnusedParameters:
-    enabled: false
-  UtilityFunction:
-    enabled: false
-directories:
-  "test":
-    FeatureEnvy:
-      enabled: false
-    NilCheck:
-      enabled: false
-    UtilityFunction:
-      enabled: false
