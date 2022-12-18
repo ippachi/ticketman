@@ -4,10 +4,10 @@ module Ticketman
   module Domain
     module Model
       class User < Entity
-        def initialize(id: ULID.generate, name: nil)
+        def initialize(name:, id: ULID.generate)
           super()
           @id = id
-          @name = "name" # TODO
+          @name = name
         end
 
         def to_h = { id: @id, name: @name }

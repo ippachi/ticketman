@@ -8,7 +8,8 @@ module Ticketman
       CONNECTION = Mongo::Client.new(
         [ENV.fetch("DATABASE_HOST", nil)], user: ENV.fetch("DATABASE_USER", nil),
                                            password: ENV.fetch("DATABASE_PASSWORD", nil),
-                                           database: ENV.fetch("DATABASE_NAME", nil)
+                                           database: ENV.fetch("DATABASE_NAME", nil),
+                                           logger: Logger.new($stdout)
       )
 
       def initialize

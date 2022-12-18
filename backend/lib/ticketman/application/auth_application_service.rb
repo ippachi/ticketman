@@ -23,14 +23,14 @@ module Ticketman
 
       def signin(code:, state:, session:)
         id_token = @oauth2_client.get_token(code, session[:code_verifier])
-        sub = verify(id_token, state, session)
+        result = verify(id_token, state, session)
 
-        logto_user = @logto_user_repo.find_or_nil(sub)
+        logto_user = @logto_user_repo.find_or_nil(result["sub"])
 
         user = if logto_user
                  @user_repo.find_or_nil(logto_user.user_id)
                else
-                 create_user(sub)
+                 create_user(result)
                end
 
         session[:user_id] = user.id
@@ -54,15 +54,15 @@ module Ticketman
         session[:state] = nil
         session[:nonce] = nil
 
-        result.first["sub"]
+        result.first
       end
 
       def jwks = JSON.parse(Net::HTTP.get(URI("#{ENV.fetch('LOGTO_ENDPOINT', nil)}/jwks")))
       # :nocov:
 
-      def create_user(id)
-        user = Domain::Model::User.new
-        logto_user = Domain::Model::LogtoUser.new(id:, user_id: user.id)
+      def create_user(attributes)
+        user = Domain::Model::User.new(name: attributes["username"])
+        logto_user = Domain::Model::LogtoUser.new(id: attributes["sub"], user_id: user.id)
         Thread::Mutex.new.synchronize do
           transaction do
             @user_repo.save(user)
