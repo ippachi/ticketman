@@ -34,6 +34,13 @@ module Ticketman
         @auth_application_service.signin(code: "test", state: "test", session:)
         @auth_application_service.signin(code: "test", state: "test", session:)
       end
+
+      def test_current_user
+        session = { state: "test" }
+        stub(@auth_application_service).verify { { "sub" => "sub", "username" => "username" } }
+        @auth_application_service.signin(code: "test", state: "test", session:)
+        assert @auth_application_service.current_user(session[:user_id])
+      end
     end
   end
 end

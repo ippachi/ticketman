@@ -36,6 +36,8 @@ module Ticketman
         session[:user_id] = user.id
       end
 
+      def current_user(user_id) = @user_repo.find(user_id)
+
       private
 
       def verify(token, state, session)
