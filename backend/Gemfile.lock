@@ -41,7 +41,7 @@ GEM
     irb (1.6.1)
       reline (>= 0.3.0)
     json (2.6.3)
-    jwt (2.5.0)
+    jwt (2.6.0)
     kwalify (0.7.2)
     launchy (2.5.0)
       addressable (~> 2.7)
